@@ -128,8 +128,8 @@ pub async fn list_skills(
         query = query.filter(agent_skills::agent_id.eq(agent));
     }
     
-    if let Some(public) = include_public {
-        query = query.filter(agent_skills::is_public.eq(public));
+    if include_public {
+        query = query.filter(agent_skills::is_public.eq(true));
     }
     
     let skills = query
@@ -301,6 +301,7 @@ pub async fn execute_skill(
     
     // 4. Execute in sandbox
     let sandbox = if skill.is_verified {
+        use crate::sandbox::SandboxBuilder;
         SandboxBuilder::new()
             .with_timeout(std::time::Duration::from_secs(30))
             .build()
@@ -308,7 +309,7 @@ pub async fn execute_skill(
         SkillSandbox::restrictive()
     };
     
-    let result = sandbox.execute(&code, input).await?;
+    let result = SkillSandbox::execute(&sandbox, &code, input).await?;
     
     let execution_time = start_time.elapsed();
     

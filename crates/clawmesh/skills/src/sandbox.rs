@@ -89,7 +89,7 @@ impl SkillSandbox {
         
         // 1. Validate permissions
         self.config.permissions.validate()
-            .context("Invalid permissions")?;
+            .map_err(|e| anyhow::anyhow!("Invalid permissions: {}", e))?;
         
         // 2. Pre-execution validation
         self.validate_code(code)?;
