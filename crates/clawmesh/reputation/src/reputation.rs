@@ -235,41 +235,181 @@ pub async fn get_reputation_stats(
     })
 }
 
+// ============================================================================
+// TESTS - DO-178C Level A Compliance
+// ============================================================================
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
+    // ========================================================================
+    // Reputation Score Calculation Tests
+    // ========================================================================
+
     #[test]
-    fn test_calculate_reputation_score() {
-        // Base score
+    fn test_calculate_reputation_score_base() {
+        // Base score with no votes
         assert_eq!(calculate_reputation_score(0, 0), 500);
-        
-        // Positive votes
+    }
+
+    #[test]
+    fn test_calculate_reputation_score_positive_votes() {
+        // Positive votes only
+        assert_eq!(calculate_reputation_score(1, 0), 510);
         assert_eq!(calculate_reputation_score(10, 0), 600);
         assert_eq!(calculate_reputation_score(50, 0), 1000);
-        
-        // Negative votes
+        assert_eq!(calculate_reputation_score(100, 0), 1500);
+    }
+
+    #[test]
+    fn test_calculate_reputation_score_negative_votes() {
+        // Negative votes only
+        assert_eq!(calculate_reputation_score(0, 1), 490);
         assert_eq!(calculate_reputation_score(0, 10), 400);
         assert_eq!(calculate_reputation_score(0, 50), 0); // Clamped to min
-        
-        // Mixed votes
-        assert_eq!(calculate_reputation_score(30, 10), 700);
-        
-        // Maximum score
-        assert_eq!(calculate_reputation_score(200, 0), 2000); // Clamped to max
-        
-        // Minimum score
         assert_eq!(calculate_reputation_score(0, 100), 0); // Clamped to min
     }
 
     #[test]
-    fn test_score_bounds() {
+    fn test_calculate_reputation_score_mixed_votes() {
+        // Mixed positive and negative votes
+        assert_eq!(calculate_reputation_score(10, 5), 550);
+        assert_eq!(calculate_reputation_score(30, 10), 700);
+        assert_eq!(calculate_reputation_score(50, 30), 700);
+        assert_eq!(calculate_reputation_score(100, 50), 1000);
+    }
+
+    #[test]
+    fn test_calculate_reputation_score_maximum_clamping() {
+        // Test maximum score clamping
+        assert_eq!(calculate_reputation_score(150, 0), 2000); // Clamped to max
+        assert_eq!(calculate_reputation_score(200, 0), 2000); // Clamped to max
+        assert_eq!(calculate_reputation_score(1000, 0), 2000); // Clamped to max
+    }
+
+    #[test]
+    fn test_calculate_reputation_score_minimum_clamping() {
+        // Test minimum score clamping
+        assert_eq!(calculate_reputation_score(0, 50), 0); // Clamped to min
+        assert_eq!(calculate_reputation_score(0, 100), 0); // Clamped to min
+        assert_eq!(calculate_reputation_score(0, 1000), 0); // Clamped to min
+        assert_eq!(calculate_reputation_score(10, 60), 0); // 500 + 100 - 600 = 0
+    }
+
+    #[test]
+    fn test_calculate_reputation_score_boundary_values() {
+        // Test exact boundary values
+        assert_eq!(calculate_reputation_score(150, 0), 2000); // Exactly at max
+        assert_eq!(calculate_reputation_score(149, 0), 1990); // Just below max
+        assert_eq!(calculate_reputation_score(0, 50), 0); // Exactly at min
+        assert_eq!(calculate_reputation_score(0, 49), 10); // Just above min
+    }
+
+    #[test]
+    fn test_calculate_reputation_score_bounds_comprehensive() {
         // Test that score is always within valid range
         for pos in 0..200 {
             for neg in 0..200 {
                 let score = calculate_reputation_score(pos, neg);
-                assert!(score >= 0 && score <= 2000);
+                assert!(score >= 0 && score <= 2000, 
+                    "Score {} out of bounds for pos={}, neg={}", score, pos, neg);
             }
         }
+    }
+
+    #[test]
+    fn test_calculate_reputation_score_deterministic() {
+        // Test that function is deterministic
+        for _ in 0..10 {
+            assert_eq!(calculate_reputation_score(25, 15), 600);
+            assert_eq!(calculate_reputation_score(100, 50), 1000);
+        }
+    }
+
+    #[test]
+    fn test_calculate_reputation_score_symmetric_cancellation() {
+        // Test that equal positive and negative votes cancel out
+        assert_eq!(calculate_reputation_score(10, 10), 500);
+        assert_eq!(calculate_reputation_score(50, 50), 500);
+        assert_eq!(calculate_reputation_score(100, 100), 500);
+    }
+
+    #[test]
+    fn test_calculate_reputation_score_overflow_safety() {
+        // Test with very large values to ensure no overflow
+        assert_eq!(calculate_reputation_score(i32::MAX / 20, 0), 2000);
+        assert_eq!(calculate_reputation_score(0, i32::MAX / 20), 0);
+    }
+
+    // ========================================================================
+    // Reputation Level Tests
+    // ========================================================================
+
+    #[test]
+    fn test_reputation_level_from_score() {
+        // Test level assignment based on score
+        assert_eq!(ReputationLevel::from_score(0), ReputationLevel::Novice);
+        assert_eq!(ReputationLevel::from_score(100), ReputationLevel::Novice);
+        assert_eq!(ReputationLevel::from_score(299), ReputationLevel::Novice);
+        
+        assert_eq!(ReputationLevel::from_score(300), ReputationLevel::Bronze);
+        assert_eq!(ReputationLevel::from_score(500), ReputationLevel::Bronze);
+        assert_eq!(ReputationLevel::from_score(599), ReputationLevel::Bronze);
+        
+        assert_eq!(ReputationLevel::from_score(600), ReputationLevel::Silver);
+        assert_eq!(ReputationLevel::from_score(800), ReputationLevel::Silver);
+        assert_eq!(ReputationLevel::from_score(999), ReputationLevel::Silver);
+        
+        assert_eq!(ReputationLevel::from_score(1000), ReputationLevel::Gold);
+        assert_eq!(ReputationLevel::from_score(1200), ReputationLevel::Gold);
+        assert_eq!(ReputationLevel::from_score(1399), ReputationLevel::Gold);
+        
+        assert_eq!(ReputationLevel::from_score(1400), ReputationLevel::Platinum);
+        assert_eq!(ReputationLevel::from_score(1600), ReputationLevel::Platinum);
+        assert_eq!(ReputationLevel::from_score(1799), ReputationLevel::Platinum);
+        
+        assert_eq!(ReputationLevel::from_score(1800), ReputationLevel::Diamond);
+        assert_eq!(ReputationLevel::from_score(1900), ReputationLevel::Diamond);
+        assert_eq!(ReputationLevel::from_score(2000), ReputationLevel::Diamond);
+    }
+
+    #[test]
+    fn test_reputation_level_boundaries() {
+        // Test exact boundary values
+        assert_eq!(ReputationLevel::from_score(299), ReputationLevel::Novice);
+        assert_eq!(ReputationLevel::from_score(300), ReputationLevel::Bronze);
+        
+        assert_eq!(ReputationLevel::from_score(599), ReputationLevel::Bronze);
+        assert_eq!(ReputationLevel::from_score(600), ReputationLevel::Silver);
+        
+        assert_eq!(ReputationLevel::from_score(999), ReputationLevel::Silver);
+        assert_eq!(ReputationLevel::from_score(1000), ReputationLevel::Gold);
+        
+        assert_eq!(ReputationLevel::from_score(1399), ReputationLevel::Gold);
+        assert_eq!(ReputationLevel::from_score(1400), ReputationLevel::Platinum);
+        
+        assert_eq!(ReputationLevel::from_score(1799), ReputationLevel::Platinum);
+        assert_eq!(ReputationLevel::from_score(1800), ReputationLevel::Diamond);
+    }
+
+    // ========================================================================
+    // Integration Tests (Score + Level)
+    // ========================================================================
+
+    #[test]
+    fn test_score_and_level_integration() {
+        // Test that score calculation and level assignment work together
+        let score1 = calculate_reputation_score(0, 0);
+        assert_eq!(score1, 500);
+        assert_eq!(ReputationLevel::from_score(score1), ReputationLevel::Bronze);
+        
+        let score2 = calculate_reputation_score(50, 0);
+        assert_eq!(score2, 1000);
+        assert_eq!(ReputationLevel::from_score(score2), ReputationLevel::Gold);
+        
+        let score3 = calculate_reputation_score(150, 0);
+        assert_eq!(score3, 2000);
+        assert_eq!(ReputationLevel::from_score(score3), ReputationLevel::Diamond);
     }
 }

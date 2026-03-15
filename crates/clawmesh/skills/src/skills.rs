@@ -403,16 +403,122 @@ pub async fn delete_skill(
     Ok(())
 }
 
+// ============================================================================
+// TESTS - DO-178C Level A Compliance
+// ============================================================================
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
+    // ========================================================================
+    // Skill Code Validation Tests
+    // ========================================================================
+
     #[test]
-    fn test_skill_validation() {
+    fn test_skill_validation_safe_code() {
         let safe_code = "def hello(): return 'world'";
         assert!(validate_skill_code(safe_code).is_ok());
-        
+    }
+
+    #[test]
+    fn test_skill_validation_unsafe_exec() {
         let unsafe_code = "exec('malicious')";
         assert!(validate_skill_code(unsafe_code).is_err());
+    }
+
+    #[test]
+    fn test_skill_validation_unsafe_eval() {
+        let unsafe_code = "eval('malicious')";
+        assert!(validate_skill_code(unsafe_code).is_err());
+    }
+
+    #[test]
+    fn test_skill_validation_unsafe_import() {
+        let unsafe_code = "import os; os.system('rm -rf /')";
+        assert!(validate_skill_code(unsafe_code).is_err());
+    }
+
+    #[test]
+    fn test_skill_validation_empty_code() {
+        let empty_code = "";
+        assert!(validate_skill_code(empty_code).is_err());
+    }
+
+    #[test]
+    fn test_skill_validation_whitespace_only() {
+        let whitespace_code = "   \n\t  ";
+        assert!(validate_skill_code(whitespace_code).is_err());
+    }
+
+    #[test]
+    fn test_skill_validation_complex_safe_code() {
+        let safe_code = r#"
+def calculate_sum(a, b):
+    return a + b
+
+def process_data(data):
+    result = []
+    for item in data:
+        result.append(item * 2)
+    return result
+"#;
+        assert!(validate_skill_code(safe_code).is_ok());
+    }
+
+    // ========================================================================
+    // Skill Type Tests
+    // ========================================================================
+
+    #[test]
+    fn test_skill_type_values() {
+        assert_eq!(SkillType::Python as i32, 0);
+        assert_eq!(SkillType::JavaScript as i32, 1);
+        assert_eq!(SkillType::Rust as i32, 2);
+        assert_eq!(SkillType::WebAssembly as i32, 3);
+    }
+
+    #[test]
+    fn test_skill_type_from_i32() {
+        assert_eq!(SkillType::from_i32(0), Some(SkillType::Python));
+        assert_eq!(SkillType::from_i32(1), Some(SkillType::JavaScript));
+        assert_eq!(SkillType::from_i32(2), Some(SkillType::Rust));
+        assert_eq!(SkillType::from_i32(3), Some(SkillType::WebAssembly));
+        assert_eq!(SkillType::from_i32(4), None);
+        assert_eq!(SkillType::from_i32(-1), None);
+    }
+
+    // ========================================================================
+    // Security Scan Tests
+    // ========================================================================
+
+    #[test]
+    fn test_security_scan_safe_code() {
+        let safe_code = "def add(a, b): return a + b";
+        let result = comprehensive_security_scan(safe_code);
+        assert!(result.is_safe);
+        assert_eq!(result.threats.len(), 0);
+    }
+
+    #[test]
+    fn test_security_scan_dangerous_patterns() {
+        let dangerous_code = "import subprocess; subprocess.call(['rm', '-rf', '/'])";
+        let result = comprehensive_security_scan(dangerous_code);
+        assert!(!result.is_safe);
+        assert!(result.threats.len() > 0);
+    }
+
+    #[test]
+    fn test_security_scan_file_operations() {
+        let file_code = "open('/etc/passwd', 'r').read()";
+        let result = comprehensive_security_scan(file_code);
+        assert!(!result.is_safe);
+    }
+
+    #[test]
+    fn test_security_scan_network_operations() {
+        let network_code = "import socket; socket.socket()";
+        let result = comprehensive_security_scan(network_code);
+        assert!(!result.is_safe);
     }
 }
