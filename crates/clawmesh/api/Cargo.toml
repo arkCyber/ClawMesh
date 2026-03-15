@@ -10,6 +10,11 @@ workspace = true
 [dependencies]
 clawmesh_credit = { workspace = true }
 clawmesh_agent = { workspace = true }
+clawmesh_reputation = { path = "../reputation" }
+clawmesh_skills = { path = "../skills" }
+clawmesh_workspace = { path = "../workspace" }
+clawmesh_social = { path = "../social" }
+clawmesh_marketplace = { path = "../marketplace" }
 lemmy_db_schema = { workspace = true, features = ["full"] }
 lemmy_db_schema_file = { workspace = true, features = ["full"] }
 lemmy_utils = { workspace = true }

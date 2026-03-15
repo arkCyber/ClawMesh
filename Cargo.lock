@@ -1006,7 +1006,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3a822ea5bc7590f9d40f1ba12c0dc3c2760f3482c6984db1573ad11031420831"
 
 [[package]]
-name = "clawmeet_agent"
+name = "clawmesh_agent"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -1021,14 +1021,19 @@ dependencies = [
 ]
 
 [[package]]
-name = "clawmeet_api"
+name = "clawmesh_api"
 version = "0.1.0"
 dependencies = [
  "actix-web",
  "anyhow",
  "chrono",
- "clawmeet_agent",
- "clawmeet_credit",
+ "clawmesh_agent",
+ "clawmesh_credit",
+ "clawmesh_marketplace",
+ "clawmesh_reputation",
+ "clawmesh_skills",
+ "clawmesh_social",
+ "clawmesh_workspace",
  "diesel",
  "diesel-async",
  "futures-util",
@@ -1046,7 +1051,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "clawmeet_audit"
+name = "clawmesh_audit"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -1061,7 +1066,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "clawmeet_cache"
+name = "clawmesh_cache"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -1073,7 +1078,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "clawmeet_config"
+name = "clawmesh_config"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -1083,7 +1088,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "clawmeet_credit"
+name = "clawmesh_credit"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -1098,7 +1103,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "clawmeet_filemanager"
+name = "clawmesh_filemanager"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -1118,7 +1123,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "clawmeet_friendship"
+name = "clawmesh_friendship"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -1132,25 +1137,41 @@ dependencies = [
 ]
 
 [[package]]
-name = "clawmeet_integration_tests"
+name = "clawmesh_integration_tests"
 version = "0.1.0"
 dependencies = [
  "actix-rt",
  "actix-web",
  "anyhow",
- "clawmeet_agent",
- "clawmeet_api",
- "clawmeet_cache",
- "clawmeet_config",
- "clawmeet_credit",
- "clawmeet_triggers",
- "clawmeet_ui",
+ "clawmesh_agent",
+ "clawmesh_api",
+ "clawmesh_cache",
+ "clawmesh_config",
+ "clawmesh_credit",
+ "clawmesh_triggers",
+ "clawmesh_ui",
  "serde_json",
  "tokio",
 ]
 
 [[package]]
-name = "clawmeet_messaging"
+name = "clawmesh_marketplace"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "diesel",
+ "diesel-async",
+ "lemmy_db_schema_file",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tracing",
+ "uuid",
+]
+
+[[package]]
+name = "clawmesh_messaging"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -1158,7 +1179,7 @@ dependencies = [
  "base64 0.21.7",
  "bincode",
  "chrono",
- "clawmeet_realtime",
+ "clawmesh_realtime",
  "crc32fast",
  "diesel",
  "diesel-async",
@@ -1181,7 +1202,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "clawmeet_notification"
+name = "clawmesh_notification"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -1197,7 +1218,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "clawmeet_realtime"
+name = "clawmesh_realtime"
 version = "0.1.0"
 dependencies = [
  "actix",
@@ -1216,13 +1237,29 @@ dependencies = [
 ]
 
 [[package]]
-name = "clawmeet_scheduler"
+name = "clawmesh_reputation"
 version = "0.1.0"
 dependencies = [
  "anyhow",
  "chrono",
- "clawmeet_agent",
- "clawmeet_credit",
+ "clawmesh_agent",
+ "diesel",
+ "diesel-async",
+ "lemmy_db_schema_file",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "clawmesh_scheduler"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clawmesh_agent",
+ "clawmesh_credit",
  "diesel",
  "diesel-async",
  "lemmy_db_schema 1.0.0-test-arm-qemu.0",
@@ -1232,7 +1269,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "clawmeet_search"
+name = "clawmesh_search"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -1249,27 +1286,63 @@ dependencies = [
 ]
 
 [[package]]
-name = "clawmeet_tests"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "clawmeet_agent",
- "clawmeet_api",
- "clawmeet_audit",
- "clawmeet_cache",
- "clawmeet_config",
- "clawmeet_credit",
- "clawmeet_triggers",
- "tokio",
-]
-
-[[package]]
-name = "clawmeet_triggers"
+name = "clawmesh_skills"
 version = "0.1.0"
 dependencies = [
  "anyhow",
  "chrono",
- "clawmeet_credit",
+ "clawmesh_agent",
+ "diesel",
+ "diesel-async",
+ "hex",
+ "lemmy_db_schema_file",
+ "libc",
+ "nix",
+ "serde",
+ "serde_json",
+ "sha2",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "clawmesh_social"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "diesel",
+ "diesel-async",
+ "lemmy_db_schema_file",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tracing",
+ "uuid",
+]
+
+[[package]]
+name = "clawmesh_tests"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clawmesh_agent",
+ "clawmesh_api",
+ "clawmesh_audit",
+ "clawmesh_cache",
+ "clawmesh_config",
+ "clawmesh_credit",
+ "clawmesh_triggers",
+ "tokio",
+]
+
+[[package]]
+name = "clawmesh_triggers"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clawmesh_credit",
  "diesel",
  "diesel-async",
  "lemmy_db_schema 1.0.0-test-arm-qemu.0",
@@ -1278,18 +1351,34 @@ dependencies = [
 ]
 
 [[package]]
-name = "clawmeet_ui"
+name = "clawmesh_ui"
 version = "0.1.0"
 dependencies = [
  "actix-web",
  "askama",
- "clawmeet_api",
+ "clawmesh_api",
  "diesel",
  "diesel-async",
  "lemmy_db_schema 1.0.0-test-arm-qemu.0",
  "lemmy_db_schema_file",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "clawmesh_workspace"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "diesel",
+ "diesel-async",
+ "lemmy_db_schema_file",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tracing",
+ "uuid",
 ]
 
 [[package]]
@@ -3749,7 +3838,7 @@ name = "lemmy_api_routes"
 version = "1.0.0-test-arm-qemu.0"
 dependencies = [
  "actix-web",
- "clawmeet_api",
+ "clawmesh_api",
  "lemmy_api",
  "lemmy_api_crud",
  "lemmy_api_routes_v3",
@@ -5205,6 +5294,17 @@ name = "new_debug_unreachable"
 version = "1.0.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "650eef8c711430f1a879fdd01d4745a7deea475becfb90269c06775983bbf086"
+
+[[package]]
+name = "nix"
+version = "0.27.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2eb04e9c688eff1c89d72b407f168cf79bb9e867a9d3323ed6c01519eb9cc053"
+dependencies = [
+ "bitflags 2.10.0",
+ "cfg-if",
+ "libc",
+]
 
 [[package]]
 name = "nom"

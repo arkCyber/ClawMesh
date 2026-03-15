@@ -82,6 +82,11 @@ members = [
   "crates/clawmesh/filemanager",
   "crates/clawmesh/notification",
   "crates/clawmesh/friendship",
+  "crates/clawmesh/reputation",
+  "crates/clawmesh/skills",
+  "crates/clawmesh/workspace",
+  "crates/clawmesh/social",
+  "crates/clawmesh/marketplace",
 ]
 resolver = "3"
 

@@ -1131,11 +1131,341 @@ diesel::table! {
     }
 }
 
+diesel::table! {
+    agent_reputation (agent_id) {
+        agent_id -> Int4,
+        reputation_score -> Int4,
+        total_votes -> Int4,
+        positive_votes -> Int4,
+        negative_votes -> Int4,
+        reputation_level -> Int4,
+        last_updated -> Timestamptz,
+        created_at -> Timestamptz,
+    }
+}
+
+diesel::table! {
+    agent_reputation_history (id) {
+        id -> Int4,
+        agent_id -> Int4,
+        voter_id -> Int4,
+        vote_type -> Int4,
+        reason -> Nullable<Text>,
+        score_before -> Int4,
+        score_after -> Int4,
+        created_at -> Timestamptz,
+    }
+}
+
+diesel::table! {
+    agent_skills (id) {
+        id -> Int4,
+        agent_id -> Int4,
+        #[max_length = 255]
+        skill_name -> Varchar,
+        skill_type -> Int4,
+        skill_code -> Nullable<Text>,
+        skill_metadata -> Nullable<Jsonb>,
+        #[max_length = 50]
+        version -> Varchar,
+        is_public -> Bool,
+        is_verified -> Bool,
+        downloads -> Int4,
+        created_at -> Timestamptz,
+        updated_at -> Timestamptz,
+    }
+}
+
+diesel::table! {
+    agent_skill_installations (id) {
+        id -> Int4,
+        agent_id -> Int4,
+        skill_id -> Int4,
+        installed_at -> Timestamptz,
+        last_used -> Nullable<Timestamptz>,
+        usage_count -> Int4,
+    }
+}
+
+diesel::table! {
+    agent_skill_logs (id) {
+        id -> Int4,
+        agent_id -> Int4,
+        skill_id -> Int4,
+        execution_time_ms -> Int4,
+        success -> Bool,
+        error_message -> Nullable<Text>,
+        created_at -> Timestamptz,
+    }
+}
+
 diesel::joinable!(credit_history -> person (person_id));
 diesel::joinable!(agent_heartbeats -> person (person_id));
+diesel::joinable!(agent_reputation -> person (agent_id));
+diesel::joinable!(agent_reputation_history -> person (agent_id));
+diesel::joinable!(agent_skills -> person (agent_id));
+diesel::joinable!(agent_skill_installations -> person (agent_id));
+diesel::joinable!(agent_skill_installations -> agent_skills (skill_id));
+diesel::joinable!(agent_skill_logs -> person (agent_id));
+diesel::joinable!(agent_skill_logs -> agent_skills (skill_id));
 
 diesel::allow_tables_to_appear_in_same_query!(
   credit_history,
   agent_heartbeats,
+  agent_reputation,
+  agent_reputation_history,
+  agent_skills,
+  agent_skill_installations,
+  agent_skill_logs,
+  person,
+);
+
+// ============================================================================
+// Agent Workspace Tables
+// ============================================================================
+
+diesel::table! {
+  agent_workspaces (id) {
+    id -> Int4,
+    name -> Varchar,
+    description -> Nullable<Text>,
+    owner_id -> Int4,
+    is_public -> Bool,
+    max_members -> Int4,
+    created_at -> Timestamptz,
+    updated_at -> Timestamptz,
+  }
+}
+
+diesel::table! {
+  agent_workspace_members (id) {
+    id -> Int4,
+    workspace_id -> Int4,
+    agent_id -> Int4,
+    role -> Int4,
+    joined_at -> Timestamptz,
+    last_active -> Timestamptz,
+  }
+}
+
+diesel::table! {
+  agent_workspace_tasks (id) {
+    id -> Int4,
+    workspace_id -> Int4,
+    title -> Varchar,
+    description -> Nullable<Text>,
+    status -> Int4,
+    priority -> Int4,
+    assigned_to -> Nullable<Int4>,
+    created_by -> Int4,
+    due_date -> Nullable<Timestamptz>,
+    created_at -> Timestamptz,
+    updated_at -> Timestamptz,
+    completed_at -> Nullable<Timestamptz>,
+  }
+}
+
+diesel::table! {
+  agent_workspace_activities (id) {
+    id -> Int4,
+    workspace_id -> Int4,
+    agent_id -> Int4,
+    activity_type -> Int4,
+    target_id -> Nullable<Int4>,
+    description -> Text,
+    metadata -> Nullable<Jsonb>,
+    created_at -> Timestamptz,
+  }
+}
+
+diesel::joinable!(agent_workspaces -> person (owner_id));
+diesel::joinable!(agent_workspace_members -> agent_workspaces (workspace_id));
+diesel::joinable!(agent_workspace_members -> person (agent_id));
+diesel::joinable!(agent_workspace_tasks -> agent_workspaces (workspace_id));
+diesel::joinable!(agent_workspace_tasks -> person (created_by));
+diesel::joinable!(agent_workspace_activities -> agent_workspaces (workspace_id));
+diesel::joinable!(agent_workspace_activities -> person (agent_id));
+
+diesel::allow_tables_to_appear_in_same_query!(
+  agent_workspaces,
+  agent_workspace_members,
+  agent_workspace_tasks,
+  agent_workspace_activities,
+  person,
+);
+
+// ============================================================================
+// Agent Social Tables
+// ============================================================================
+
+diesel::table! {
+  agent_posts (id) {
+    id -> Int4,
+    agent_id -> Int4,
+    title -> Varchar,
+    content -> Nullable<Text>,
+    tags -> Nullable<Array<Text>>,
+    is_public -> Bool,
+    view_count -> Int4,
+    created_at -> Timestamptz,
+    updated_at -> Timestamptz,
+    deleted_at -> Nullable<Timestamptz>,
+  }
+}
+
+diesel::table! {
+  agent_comments (id) {
+    id -> Int4,
+    post_id -> Int4,
+    agent_id -> Int4,
+    parent_id -> Nullable<Int4>,
+    content -> Text,
+    created_at -> Timestamptz,
+    updated_at -> Timestamptz,
+    deleted_at -> Nullable<Timestamptz>,
+  }
+}
+
+diesel::table! {
+  agent_votes (id) {
+    id -> Int4,
+    agent_id -> Int4,
+    post_id -> Nullable<Int4>,
+    comment_id -> Nullable<Int4>,
+    vote_type -> Int4,
+    created_at -> Timestamptz,
+  }
+}
+
+diesel::table! {
+  agent_follows (id) {
+    id -> Int4,
+    follower_id -> Int4,
+    following_id -> Int4,
+    created_at -> Timestamptz,
+  }
+}
+
+diesel::table! {
+  agent_bookmarks (id) {
+    id -> Int4,
+    agent_id -> Int4,
+    post_id -> Int4,
+    created_at -> Timestamptz,
+  }
+}
+
+diesel::table! {
+  agent_notifications (id) {
+    id -> Int4,
+    agent_id -> Int4,
+    notification_type -> Int4,
+    actor_id -> Int4,
+    post_id -> Nullable<Int4>,
+    comment_id -> Nullable<Int4>,
+    message -> Text,
+    is_read -> Bool,
+    created_at -> Timestamptz,
+  }
+}
+
+diesel::joinable!(agent_posts -> person (agent_id));
+diesel::joinable!(agent_comments -> agent_posts (post_id));
+diesel::joinable!(agent_comments -> person (agent_id));
+diesel::joinable!(agent_votes -> person (agent_id));
+diesel::joinable!(agent_votes -> agent_posts (post_id));
+diesel::joinable!(agent_votes -> agent_comments (comment_id));
+diesel::joinable!(agent_bookmarks -> person (agent_id));
+diesel::joinable!(agent_bookmarks -> agent_posts (post_id));
+diesel::joinable!(agent_notifications -> person (agent_id));
+
+diesel::allow_tables_to_appear_in_same_query!(
+  agent_posts,
+  agent_comments,
+  agent_votes,
+  agent_follows,
+  agent_bookmarks,
+  agent_notifications,
+  person,
+);
+
+// ============================================================================
+// Marketplace Tables
+// ============================================================================
+
+diesel::table! {
+  marketplace_products (id) {
+    id -> Int4,
+    seller_id -> Int4,
+    name -> Varchar,
+    description -> Nullable<Text>,
+    category -> Int4,
+    price -> Int8,
+    stock -> Int4,
+    status -> Int4,
+    image_url -> Nullable<Text>,
+    metadata -> Nullable<Jsonb>,
+    created_at -> Timestamptz,
+    updated_at -> Timestamptz,
+  }
+}
+
+diesel::table! {
+  marketplace_orders (id) {
+    id -> Int4,
+    product_id -> Int4,
+    buyer_id -> Int4,
+    seller_id -> Int4,
+    quantity -> Int4,
+    total_price -> Int8,
+    status -> Int4,
+    notes -> Nullable<Text>,
+    created_at -> Timestamptz,
+    updated_at -> Timestamptz,
+    completed_at -> Nullable<Timestamptz>,
+  }
+}
+
+diesel::table! {
+  marketplace_payments (id) {
+    id -> Int4,
+    order_id -> Int4,
+    payer_id -> Int4,
+    payee_id -> Int4,
+    amount -> Int8,
+    status -> Int4,
+    transaction_id -> Nullable<Text>,
+    created_at -> Timestamptz,
+    processed_at -> Nullable<Timestamptz>,
+  }
+}
+
+diesel::table! {
+  marketplace_reviews (id) {
+    id -> Int4,
+    product_id -> Int4,
+    order_id -> Int4,
+    reviewer_id -> Int4,
+    rating -> Int4,
+    comment -> Nullable<Text>,
+    created_at -> Timestamptz,
+    updated_at -> Timestamptz,
+  }
+}
+
+diesel::joinable!(marketplace_products -> person (seller_id));
+diesel::joinable!(marketplace_orders -> marketplace_products (product_id));
+diesel::joinable!(marketplace_orders -> person (buyer_id));
+diesel::joinable!(marketplace_payments -> marketplace_orders (order_id));
+diesel::joinable!(marketplace_payments -> person (payer_id));
+diesel::joinable!(marketplace_reviews -> marketplace_products (product_id));
+diesel::joinable!(marketplace_reviews -> marketplace_orders (order_id));
+diesel::joinable!(marketplace_reviews -> person (reviewer_id));
+
+diesel::allow_tables_to_appear_in_same_query!(
+  marketplace_products,
+  marketplace_orders,
+  marketplace_payments,
+  marketplace_reviews,
   person,
 );

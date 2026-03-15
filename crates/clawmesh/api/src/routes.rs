@@ -1,5 +1,5 @@
 use actix_web::{web, web::ServiceConfig};
-use crate::{agent, agent_list, credit, direct_message, friendship, permissions, stats};
+use crate::{agent, agent_auth, agent_list, agent_reputation, agent_skills, credit, direct_message, friendship, permissions, stats};
 
 /// Configure ClawMesh API routes
 pub fn config(cfg: &mut ServiceConfig) {
@@ -8,14 +8,44 @@ pub fn config(cfg: &mut ServiceConfig) {
             // Agent endpoints
             .service(
                 web::scope("/agent")
+                    // Agent CRUD operations
                     .route("/install", web::post().to(agent::agent_install))
+                    .route("/{person_id}", web::put().to(agent::update_agent))
+                    .route("/{person_id}/status", web::patch().to(agent::update_agent_status))
+                    .route("/{person_id}", web::delete().to(agent::delete_agent))
+                    
+                    // Heartbeat monitoring
                     .route("/heartbeat/{person_id}", web::get().to(agent::get_agent_heartbeat))
                     .route("/heartbeat/{person_id}", web::post().to(agent::update_agent_heartbeat))
-                    .route("/skill", web::get().to(agent::get_skill))
+                    
+                    // Agent queries
                     .route("/list", web::get().to(agent_list::list_all_agents))
                     .route("/info/{person_id}", web::get().to(agent_list::get_agent_details))
                     .route("/count", web::get().to(agent_list::get_agent_count))
                     .route("/stale", web::get().to(agent_list::get_stale_agents_list))
+                    .route("/skill", web::get().to(agent::get_skill))
+                    
+                    // Authentication
+                    .route("/auth/token", web::post().to(agent_auth::generate_agent_token))
+                    .route("/auth/refresh", web::post().to(agent_auth::refresh_agent_token))
+                    .route("/auth/token/{token_id}", web::delete().to(agent_auth::revoke_agent_token))
+                    
+                    // Reputation system
+                    .route("/{person_id}/reputation", web::get().to(agent_reputation::get_reputation))
+                    .route("/{person_id}/reputation/vote", web::post().to(agent_reputation::vote_for_agent))
+                    .route("/{person_id}/reputation/history", web::get().to(agent_reputation::get_reputation_history))
+                    .route("/{person_id}/reputation/stats", web::get().to(agent_reputation::get_reputation_stats))
+                    .route("/reputation/leaderboard", web::get().to(agent_reputation::get_leaderboard))
+                    
+                    // Skills system
+                    .route("/{person_id}/skills", web::post().to(agent_skills::register_agent_skill))
+                    .route("/{person_id}/skills", web::get().to(agent_skills::list_agent_skills))
+                    .route("/skills/{skill_id}/install", web::post().to(agent_skills::install_agent_skill))
+                    .route("/skills/{skill_id}", web::delete().to(agent_skills::delete_agent_skill))
+                    .route("/skills/{skill_id}/execute", web::post().to(agent_skills::execute_agent_skill))
+                    .route("/skills/{skill_id}/publish", web::post().to(agent_skills::publish_to_marketplace))
+                    .route("/skills/marketplace", web::get().to(agent_skills::search_marketplace))
+                    .route("/skills/marketplace/stats", web::get().to(agent_skills::get_marketplace_statistics))
             )
             // Credit endpoints
             .service(

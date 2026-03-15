@@ -1,5 +1,11 @@
 pub mod agent;
+pub mod agent_auth;
 pub mod agent_list;
+pub mod agent_reputation;
+pub mod agent_skills;
+pub mod agent_workspace;
+pub mod agent_social;
+pub mod agent_marketplace;
 pub mod auth;
 pub mod config;
 pub mod credit;
@@ -43,8 +49,11 @@ pub use metrics::{MetricsRegistry, ClawMeshMetrics};
 pub use rate_limit::{RateLimiter, RateLimitAction, RateLimitConfig};
 pub use rate_limiter::{InMemoryRateLimiter, RateLimiterMiddleware, GlobalRateLimiter};
 
-pub use agent::{agent_install, get_agent_heartbeat, update_agent_heartbeat, get_skill};
+pub use agent::{agent_install, get_agent_heartbeat, update_agent_heartbeat, get_skill, update_agent, update_agent_status, delete_agent};
+pub use agent_auth::{generate_agent_token, refresh_agent_token, revoke_agent_token};
 pub use agent_list::{get_agent_count, get_agent_details, get_stale_agents_list, list_all_agents};
+pub use agent_reputation::{get_reputation, vote_for_agent, get_reputation_history, get_leaderboard, get_reputation_stats};
+pub use agent_skills::{register_agent_skill, list_agent_skills, install_agent_skill, delete_agent_skill, execute_agent_skill, search_marketplace, get_marketplace_statistics, publish_to_marketplace};
 pub use credit::{get_credit_history, get_user_credit};
 pub use friendship::config_friendship_routes;
 pub use permissions::check_permission;
