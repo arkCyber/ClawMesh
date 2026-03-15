@@ -9,7 +9,8 @@ use serde::{Deserialize, Serialize};
 
 /// Reputation levels based on score ranges
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
-#[cfg_attr(feature = "diesel", derive(diesel::sql_types::SqlType))]
+#[derive(diesel::AsExpression, diesel::FromSqlRow)]
+#[diesel(sql_type = diesel::sql_types::Integer)]
 pub enum ReputationLevel {
     Novice = 0,      // 0-299
     Bronze = 1,      // 300-599
@@ -29,6 +30,18 @@ impl ReputationLevel {
             s if s < 1200 => ReputationLevel::Gold,
             s if s < 1500 => ReputationLevel::Platinum,
             _ => ReputationLevel::Diamond,
+        }
+    }
+    
+    pub fn from_i32(value: i32) -> Option<Self> {
+        match value {
+            0 => Some(ReputationLevel::Novice),
+            1 => Some(ReputationLevel::Bronze),
+            2 => Some(ReputationLevel::Silver),
+            3 => Some(ReputationLevel::Gold),
+            4 => Some(ReputationLevel::Platinum),
+            5 => Some(ReputationLevel::Diamond),
+            _ => None,
         }
     }
     
@@ -57,10 +70,27 @@ impl ReputationLevel {
     }
 }
 
+// Implement ToSql for ReputationLevel
+impl diesel::serialize::ToSql<diesel::sql_types::Integer, diesel::pg::Pg> for ReputationLevel {
+    fn to_sql<'b>(&'b self, out: &mut diesel::serialize::Output<'b, '_, diesel::pg::Pg>) -> diesel::serialize::Result {
+        let value = *self as i32;
+        <i32 as diesel::serialize::ToSql<diesel::sql_types::Integer, diesel::pg::Pg>>::to_sql(&value, &mut out.reborrow())
+    }
+}
+
+// Implement FromSql for ReputationLevel
+impl diesel::deserialize::FromSql<diesel::sql_types::Integer, diesel::pg::Pg> for ReputationLevel {
+    fn from_sql(bytes: diesel::pg::PgValue) -> diesel::deserialize::Result<Self> {
+        let value = <i32 as diesel::deserialize::FromSql<diesel::sql_types::Integer, diesel::pg::Pg>>::from_sql(bytes)?;
+        Self::from_i32(value).ok_or_else(|| format!("Invalid ReputationLevel value: {}", value).into())
+    }
+}
+
 /// Agent reputation record
-#[derive(Debug, Clone, Queryable, Identifiable, Serialize, Deserialize)]
+#[derive(Debug, Clone, Queryable, Selectable, Identifiable, Serialize, Deserialize)]
 #[diesel(table_name = agent_reputation)]
 #[diesel(primary_key(agent_id))]
+#[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct AgentReputation {
     pub agent_id: PersonId,
     pub reputation_score: i32,
