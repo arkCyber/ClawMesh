@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-lemmy_db_schema_file = { path = "../../db_schema_file", features = ["full"] }
+lemmy_db_schema_file = { workspace = true, features = ["full"] }
 diesel = { workspace = true }
 diesel-async = { workspace = true }
 chrono = { workspace = true }
@@ -12,7 +12,7 @@ serde = { workspace = true }
 serde_json = { workspace = true }
 anyhow = { workspace = true }
 tracing = { workspace = true }
-uuid = { version = "1.0", features = ["v4", "serde"] }
+uuid = { workspace = true }
 
 [dev-dependencies]
 tokio = { workspace = true }
