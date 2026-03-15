@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ translator.t("credit.title") }} - ClawMeet</title>
+    <style>
+        body { font-family: system-ui, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .card { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        .score { font-size: 48px; font-weight: bold; color: #4CAF50; }
+        .tier { font-size: 24px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>{{ translator.t("credit.title") }}</h1>
+            <div class="score">{{ user_credit }}</div>
+            <div class="tier">{{ translator.t("credit.tier") }}: {{ user_tier }}</div>
+        </div>
+    </div>
+</body>
+</html>

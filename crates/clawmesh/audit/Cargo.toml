@@ -1,0 +1,15 @@
+[package]
+name = "clawmesh_audit"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+lemmy_db_schema = { workspace = true }
+lemmy_db_schema_file = { workspace = true }
+diesel = { workspace = true }
+diesel-async = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }

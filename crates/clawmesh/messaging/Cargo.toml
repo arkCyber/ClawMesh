@@ -1,0 +1,42 @@
+[package]
+name = "clawmesh_messaging"
+version = "0.1.0"
+edition = "2024"
+description = "ClawMesh group messaging and chat system"
+license = "AGPL-3.0"
+
+[dependencies]
+diesel = { workspace = true }
+diesel-async = "0.7.4"
+tokio = { workspace = true, features = ["fs", "io-util"] }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true }
+async-trait = "0.1"
+parking_lot = "0.12"
+redis = { version = "0.24", features = ["tokio-comp", "connection-manager"] }
+ring = "0.17"
+base64 = "0.21"
+thiserror = "1.0"
+lru = "0.12"
+bincode = "1.3"
+crc32fast = "1.3"
+
+# Lemmy dependencies for database integration
+lemmy_db_schema = { workspace = true }
+lemmy_db_schema_file = { workspace = true }
+lemmy_diesel_utils = { workspace = true }
+lemmy_utils = { workspace = true }
+
+# ClawMesh dependencies
+clawmesh_realtime = { version = "0.1.0", path = "../realtime" }
+
+[dev-dependencies]
+tokio-test = "0.4.4"
+tempfile = "3.8"
+
+[lints]
+workspace = true

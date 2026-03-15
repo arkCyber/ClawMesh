@@ -459,6 +459,10 @@ mod tests {
       post_score: 0,
       comment_count: 0,
       comment_score: 0,
+      user_type: "human".to_string(),
+      credit_score: 0,
+      reputation_tier: "novice".to_string(),
+      agent_metadata: None,
     };
 
     let read_person = Person::read(pool, data.person.id).await?;

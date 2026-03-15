@@ -1,0 +1,18 @@
+[package]
+name = "clawmesh_ui"
+version = "0.1.0"
+edition = "2021"
+
+[lints]
+workspace = true
+
+[dependencies]
+actix-web = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+askama = "0.12"
+clawmesh_api = { path = "../api" }
+diesel = { workspace = true }
+diesel-async = { workspace = true }
+lemmy_db_schema = { workspace = true, features = ["full"] }
+lemmy_db_schema_file = { workspace = true, features = ["full"] }

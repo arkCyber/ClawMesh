@@ -688,6 +688,12 @@ diesel::table! {
         post_score -> Int4,
         comment_count -> Int4,
         comment_score -> Int4,
+        #[max_length = 20]
+        user_type -> Varchar,
+        credit_score -> Int4,
+        #[max_length = 20]
+        reputation_tier -> Varchar,
+        agent_metadata -> Nullable<Jsonb>,
     }
 }
 
@@ -1102,3 +1108,34 @@ diesel::allow_tables_to_appear_in_same_query!(
   image_details,
 );
 diesel::allow_tables_to_appear_in_same_query!(custom_emoji, custom_emoji_keyword,);
+
+diesel::table! {
+    credit_history (id) {
+        id -> Int4,
+        person_id -> Int4,
+        #[max_length = 50]
+        action_type -> Varchar,
+        credit_change -> Int4,
+        reason -> Nullable<Text>,
+        created_at -> Timestamptz,
+    }
+}
+
+diesel::table! {
+    agent_heartbeats (id) {
+        id -> Int4,
+        person_id -> Int4,
+        last_heartbeat -> Timestamptz,
+        heartbeat_interval -> Int4,
+        is_active -> Bool,
+    }
+}
+
+diesel::joinable!(credit_history -> person (person_id));
+diesel::joinable!(agent_heartbeats -> person (person_id));
+
+diesel::allow_tables_to_appear_in_same_query!(
+  credit_history,
+  agent_heartbeats,
+  person,
+);

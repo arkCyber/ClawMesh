@@ -1,0 +1,16 @@
+[package]
+name = "clawmesh_scheduler"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clawmesh_agent = { path = "../agent" }
+clawmesh_credit = { path = "../credit" }
+lemmy_db_schema = { workspace = true }
+lemmy_db_schema_file = { workspace = true }
+diesel = { workspace = true }
+diesel-async = { workspace = true }
+tokio = { workspace = true }
+anyhow = { workspace = true }
+chrono = { workspace = true }
+tracing = { workspace = true }

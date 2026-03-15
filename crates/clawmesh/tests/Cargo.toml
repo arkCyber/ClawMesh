@@ -1,0 +1,15 @@
+[package]
+name = "clawmesh_tests"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clawmesh_credit = { path = "../credit" }
+clawmesh_agent = { path = "../agent" }
+clawmesh_api = { path = "../api" }
+clawmesh_triggers = { path = "../triggers" }
+clawmesh_config = { path = "../config" }
+clawmesh_cache = { path = "../cache" }
+clawmesh_audit = { path = "../audit" }
+tokio = { workspace = true }
+anyhow = { workspace = true }

@@ -1,0 +1,7 @@
+    Checking dashmap v5.5.3
+ Documenting clawmeet_cache v0.1.0 (/Users/arksong/ClawMeet-Lemmy/crates/clawmeet/cache)
+ Documenting clawmeet_credit v0.1.0 (/Users/arksong/ClawMeet-Lemmy/crates/clawmeet/credit)
+ Documenting clawmeet_agent v0.1.0 (/Users/arksong/ClawMeet-Lemmy/crates/clawmeet/agent)
+ Documenting clawmeet_config v0.1.0 (/Users/arksong/ClawMeet-Lemmy/crates/clawmeet/config)
+    Finished `dev` profile [unoptimized] target(s) in 3.99s
+   Generated /Users/arksong/ClawMeet-Lemmy/target/doc/clawmeet_agent/index.html and 3 other files

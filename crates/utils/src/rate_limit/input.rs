@@ -43,7 +43,7 @@ fn parse_ip(addr: Option<&str>) -> IpAddr {
       return socket.ip();
     }
   }
-  Ipv4Addr::new(127, 0, 0, 1).into()
+  Ipv4Addr::LOCALHOST.into()
 }
 
 #[cfg(test)]

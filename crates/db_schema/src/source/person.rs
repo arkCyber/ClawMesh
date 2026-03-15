@@ -59,6 +59,10 @@ pub struct Person {
   pub comment_count: i32,
   #[serde(skip)]
   pub comment_score: i32,
+  pub user_type: String,
+  pub credit_score: i32,
+  pub reputation_tier: String,
+  pub agent_metadata: Option<serde_json::Value>,
 }
 
 #[derive(Clone, derive_new::new)]
@@ -96,6 +100,14 @@ pub struct PersonInsertForm {
   pub matrix_user_id: Option<String>,
   #[new(default)]
   pub bot_account: Option<bool>,
+  #[new(default)]
+  pub user_type: Option<String>,
+  #[new(default)]
+  pub credit_score: Option<i32>,
+  #[new(default)]
+  pub reputation_tier: Option<String>,
+  #[new(default)]
+  pub agent_metadata: Option<serde_json::Value>,
 }
 
 #[derive(Clone, Default)]
@@ -116,6 +128,10 @@ pub struct PersonUpdateForm {
   pub inbox_url: Option<DbUrl>,
   pub matrix_user_id: Option<Option<String>>,
   pub bot_account: Option<bool>,
+  pub user_type: Option<String>,
+  pub credit_score: Option<i32>,
+  pub reputation_tier: Option<String>,
+  pub agent_metadata: Option<Option<serde_json::Value>>,
 }
 
 #[skip_serializing_none]

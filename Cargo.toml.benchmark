@@ -1,0 +1,12 @@
+# Add to [workspace] section:
+# 
+# [[bench]]
+# name = "credit_benchmarks"
+# harness = false
+# 
+# [[bench]]
+# name = "cache_benchmarks"
+# harness = false
+
+# Add to [dev-dependencies]:
+# criterion = { version = "0.5", features = ["html_reports"] }

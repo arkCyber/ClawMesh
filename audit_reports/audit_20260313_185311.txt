@@ -1,0 +1,2788 @@
+    Fetching advisory database from `https://github.com/RustSec/advisory-db.git`
+      Loaded 949 security advisories (from /Users/arksong/.cargo/advisory-db)
+    Updating crates.io index
+    Scanning Cargo.lock for vulnerabilities (833 crate dependencies)
+Crate:     bytes
+Version:   1.11.0
+Title:     Integer overflow in `BytesMut::reserve`
+Date:      2026-02-03
+ID:        RUSTSEC-2026-0007
+URL:       https://github.com/advisories/GHSA-434x-w66g-qw3r
+Solution:  Upgrade to >=1.11.1
+Dependency tree:
+bytes 1.11.0
+├── tower-http 0.6.8
+│   └── reqwest 0.13.2
+│       ├── reqwest-tracing 0.7.0
+│       │   └── lemmy_server 1.0.0-test-arm-qemu.0
+│       ├── reqwest-middleware 0.5.1
+│       │   ├── reqwest-tracing 0.7.0
+│       │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   │   └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│       │   │       └── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│       │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│       │   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│       │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│       │   │   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   │   │   │   └── lemmy_apub 1.0.0-test-arm-qemu.0
+│       │   │   │   │       └── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│       │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │   │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   │   │   │   ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │   │   │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   │   │   │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │   │   │       └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │   └── clawmeet_api 0.1.0
+│       │   │       ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│       │   │       ├── clawmeet_ui 0.1.0
+│       │   │       │   └── clawmeet_integration_tests 0.1.0
+│       │   │       ├── clawmeet_tests 0.1.0
+│       │   │       └── clawmeet_integration_tests 0.1.0
+│       │   ├── http-signature-normalization-reqwest 0.14.1
+│       │   │   └── activitypub_federation 0.7.0-beta.8
+│       │   │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   │       ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       │   │       ├── lemmy_diesel_utils 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       │   │   ├── clawmeet_triggers 0.1.0
+│       │   │       │   │   │   ├── clawmeet_tests 0.1.0
+│       │   │       │   │   │   └── clawmeet_integration_tests 0.1.0
+│       │   │       │   │   ├── clawmeet_scheduler 0.1.0
+│       │   │       │   │   ├── clawmeet_credit 0.1.0
+│       │   │       │   │   │   ├── clawmeet_triggers 0.1.0
+│       │   │       │   │   │   ├── clawmeet_tests 0.1.0
+│       │   │       │   │   │   ├── clawmeet_scheduler 0.1.0
+│       │   │       │   │   │   ├── clawmeet_integration_tests 0.1.0
+│       │   │       │   │   │   └── clawmeet_api 0.1.0
+│       │   │       │   │   ├── clawmeet_audit 0.1.0
+│       │   │       │   │   │   └── clawmeet_tests 0.1.0
+│       │   │       │   │   ├── clawmeet_api 0.1.0
+│       │   │       │   │   └── clawmeet_agent 0.1.0
+│       │   │       │   │       ├── clawmeet_tests 0.1.0
+│       │   │       │   │       ├── clawmeet_scheduler 0.1.0
+│       │   │       │   │       ├── clawmeet_integration_tests 0.1.0
+│       │   │       │   │       └── clawmeet_api 0.1.0
+│       │   │       │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│       │   │       │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│       │   │       ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│       │   │       ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│       │   │       ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│       │   │       ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       │   │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │       ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │       └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   └── activitypub_federation 0.7.0-beta.8
+│       ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│       ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       ├── http-signature-normalization-reqwest 0.14.1
+│       └── activitypub_federation 0.7.0-beta.8
+├── tokio-util 0.7.18
+│   ├── tower-http 0.6.8
+│   ├── tokio-postgres 0.7.16
+│   │   ├── tokio-postgres-rustls 0.13.0
+│   │   │   └── lemmy_diesel_utils 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_diesel_utils 1.0.0-test-arm-qemu.0
+│   │   └── diesel-async 0.7.4
+│   │       ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_diesel_utils 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_api 1.0.0-test-arm-qemu.0
+│   │       ├── clawmeet_triggers 0.1.0
+│   │       ├── clawmeet_scheduler 0.1.0
+│   │       ├── clawmeet_credit 0.1.0
+│   │       ├── clawmeet_audit 0.1.0
+│   │       ├── clawmeet_api 0.1.0
+│   │       └── clawmeet_agent 0.1.0
+│   ├── reqwest 0.13.2
+│   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│   ├── h2 0.3.27
+│   │   ├── reqwest 0.11.27
+│   │   │   └── webmention 0.6.0
+│   │   │       └── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   ├── hyper 0.14.32
+│   │   │   ├── reqwest 0.11.27
+│   │   │   └── hyper-rustls 0.24.2
+│   │   │       └── reqwest 0.11.27
+│   │   └── actix-http 3.12.0
+│   │       └── actix-web 4.13.0
+│   │           ├── tracing-actix-web 0.7.21
+│   │           │   └── lemmy_server 1.0.0-test-arm-qemu.0
+│   │           ├── lemmy_utils 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_diesel_utils 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │           │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+│   │           │   ├── clawmeet_credit 0.1.0
+│   │           │   ├── clawmeet_api 0.1.0
+│   │           │   └── clawmeet_agent 0.1.0
+│   │           ├── lemmy_server 1.0.0-test-arm-qemu.0
+│   │           ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │           ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+│   │           ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│   │           ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│   │           ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │           ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │           ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│   │           ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │           ├── lemmy_api 1.0.0-test-arm-qemu.0
+│   │           ├── clawmeet_ui 0.1.0
+│   │           ├── clawmeet_integration_tests 0.1.0
+│   │           ├── clawmeet_api 0.1.0
+│   │           ├── actix-web-prom 0.10.0
+│   │           │   └── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │           ├── actix-web-httpauth 0.8.2
+│   │           │   └── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │           ├── actix-extensible-rate-limit 0.4.0
+│   │           │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+│   │           ├── actix-cors 0.7.1
+│   │           │   └── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │           └── activitypub_federation 0.7.0-beta.8
+│   ├── actix-tls 3.5.0
+│   │   ├── actix-web 4.13.0
+│   │   └── actix-http 3.12.0
+│   ├── actix-http 3.12.0
+│   └── actix-codec 0.5.2
+│       ├── actix-web 4.13.0
+│       └── actix-http 3.12.0
+├── tokio-postgres 0.7.16
+├── tokio 1.50.0
+│   ├── tower-http 0.6.8
+│   ├── tower 0.5.2
+│   │   ├── tower-http 0.6.8
+│   │   └── reqwest 0.13.2
+│   ├── tokio-util 0.7.18
+│   ├── tokio-rustls 0.26.4
+│   │   ├── tokio-postgres-rustls 0.13.0
+│   │   ├── reqwest 0.13.2
+│   │   ├── lettre 0.11.19
+│   │   │   └── lemmy_email 1.0.0-test-arm-qemu.0
+│   │   ├── hyper-rustls 0.27.7
+│   │   │   └── reqwest 0.13.2
+│   │   └── actix-tls 3.5.0
+│   ├── tokio-rustls 0.24.1
+│   │   ├── reqwest 0.11.27
+│   │   └── hyper-rustls 0.24.2
+│   ├── tokio-postgres-rustls 0.13.0
+│   ├── tokio-postgres 0.7.16
+│   ├── reqwest 0.13.2
+│   ├── reqwest 0.11.27
+│   ├── lettre 0.11.19
+│   ├── lemmy_utils 1.0.0-test-arm-qemu.0
+│   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   ├── lemmy_diesel_utils 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+│   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   ├── lemmy_api 1.0.0-test-arm-qemu.0
+│   ├── hyper-util 0.1.17
+│   │   ├── reqwest 0.13.2
+│   │   └── hyper-rustls 0.27.7
+│   ├── hyper-rustls 0.27.7
+│   ├── hyper-rustls 0.24.2
+│   ├── hyper 1.7.0
+│   │   ├── reqwest 0.13.2
+│   │   ├── hyper-util 0.1.17
+│   │   └── hyper-rustls 0.27.7
+│   ├── hyper 0.14.32
+│   ├── http-signature-normalization-reqwest 0.14.1
+│   ├── h2 0.3.27
+│   ├── diesel-async 0.7.4
+│   ├── deadpool-runtime 0.1.4
+│   │   └── deadpool 0.12.3
+│   │       ├── lemmy_diesel_utils 1.0.0-test-arm-qemu.0
+│   │       └── diesel-async 0.7.4
+│   ├── deadpool 0.12.3
+│   ├── clawmeet_tests 0.1.0
+│   ├── clawmeet_scheduler 0.1.0
+│   ├── clawmeet_integration_tests 0.1.0
+│   ├── clawmeet_cache 0.1.0
+│   │   ├── clawmeet_tests 0.1.0
+│   │   └── clawmeet_integration_tests 0.1.0
+│   ├── async-compression 0.4.32
+│   │   └── tower-http 0.6.8
+│   ├── actix-tls 3.5.0
+│   ├── actix-server 2.6.0
+│   │   └── actix-web 4.13.0
+│   ├── actix-rt 2.11.0
+│   │   ├── clawmeet_integration_tests 0.1.0
+│   │   ├── actix-web 4.13.0
+│   │   ├── actix-tls 3.5.0
+│   │   ├── actix-server 2.6.0
+│   │   └── actix-http 3.12.0
+│   ├── actix-http 3.12.0
+│   ├── actix-codec 0.5.2
+│   └── activitypub_federation 0.7.0-beta.8
+├── reqwest 0.13.2
+├── reqwest 0.11.27
+├── prost 0.14.1
+│   └── extism-convert 1.13.0
+│       ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│       ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+│       ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       └── extism 1.13.0
+│           ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│           ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+│           └── lemmy_api_utils 1.0.0-test-arm-qemu.0
+├── postgres-types 0.2.11
+│   └── tokio-postgres 0.7.16
+├── postgres-protocol 0.6.9
+│   ├── tokio-postgres 0.7.16
+│   └── postgres-types 0.2.11
+├── hyper-util 0.1.17
+├── hyper 1.7.0
+├── hyper 0.14.32
+├── http-body-util 0.1.3
+│   ├── tower-http 0.6.8
+│   └── reqwest 0.13.2
+├── http-body 1.0.1
+│   ├── tower-http 0.6.8
+│   ├── reqwest 0.13.2
+│   ├── hyper-util 0.1.17
+│   ├── hyper 1.7.0
+│   └── http-body-util 0.1.3
+├── http-body 0.4.6
+│   ├── reqwest 0.11.27
+│   └── hyper 0.14.32
+├── http 1.4.0
+│   ├── ureq-proto 0.5.2
+│   │   └── ureq 3.1.2
+│   │       └── extism 1.13.0
+│   ├── tower-http 0.6.8
+│   ├── reqwest-tracing 0.7.0
+│   ├── reqwest-middleware 0.5.1
+│   ├── reqwest 0.13.2
+│   ├── lemmy_utils 1.0.0-test-arm-qemu.0
+│   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   ├── hyper-util 0.1.17
+│   ├── hyper-rustls 0.27.7
+│   ├── hyper 1.7.0
+│   ├── http-body-util 0.1.3
+│   ├── http-body 1.0.1
+│   └── activitypub_federation 0.7.0-beta.8
+├── http 0.2.12
+│   ├── reqwest 0.11.27
+│   ├── hyper-rustls 0.24.2
+│   ├── hyper 0.14.32
+│   ├── http-body 0.4.6
+│   ├── h2 0.3.27
+│   ├── actix-router 0.5.4
+│   │   ├── actix-web-codegen 4.3.0
+│   │   │   └── actix-web 4.13.0
+│   │   └── actix-web 4.13.0
+│   ├── actix-http 3.12.0
+│   └── activitypub_federation 0.7.0-beta.8
+├── h2 0.3.27
+├── combine 4.6.7
+│   ├── jni 0.21.1
+│   │   └── rustls-platform-verifier 0.6.2
+│   │       └── reqwest 0.13.2
+│   └── jni 0.19.0
+│       └── html2md 0.2.15
+│           └── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+├── bytestring 1.5.0
+│   ├── actix-web 4.13.0
+│   ├── actix-router 0.5.4
+│   └── actix-http 3.12.0
+├── actix-web 4.13.0
+├── actix-http 3.12.0
+├── actix-codec 0.5.2
+└── activitypub_federation 0.7.0-beta.8
+
+Crate:     idna
+Version:   0.3.0
+Title:     `idna` accepts Punycode labels that do not produce any non-ASCII when decoded
+Date:      2024-12-09
+ID:        RUSTSEC-2024-0421
+URL:       https://rustsec.org/advisories/RUSTSEC-2024-0421
+Solution:  Upgrade to >=1.0.0
+Dependency tree:
+idna 0.3.0
+└── mdurl 0.3.1
+    └── markdown-it 0.6.1
+        ├── markdown-it-sup 1.0.2
+        │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │       │       └── lemmy_server 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_email 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   └── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   │   │       └── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   │   │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   │   │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   │   │       └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   └── clawmeet_api 0.1.0
+        │       │   │       ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │       │   │       ├── clawmeet_ui 0.1.0
+        │       │   │       │   └── clawmeet_integration_tests 0.1.0
+        │       │   │       ├── clawmeet_tests 0.1.0
+        │       │   │       └── clawmeet_integration_tests 0.1.0
+        │       │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_diesel_utils 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── clawmeet_triggers 0.1.0
+        │       │   │   │   ├── clawmeet_tests 0.1.0
+        │       │   │   │   └── clawmeet_integration_tests 0.1.0
+        │       │   │   ├── clawmeet_scheduler 0.1.0
+        │       │   │   ├── clawmeet_credit 0.1.0
+        │       │   │   │   ├── clawmeet_triggers 0.1.0
+        │       │   │   │   ├── clawmeet_tests 0.1.0
+        │       │   │   │   ├── clawmeet_scheduler 0.1.0
+        │       │   │   │   ├── clawmeet_integration_tests 0.1.0
+        │       │   │   │   └── clawmeet_api 0.1.0
+        │       │   │   ├── clawmeet_audit 0.1.0
+        │       │   │   │   └── clawmeet_tests 0.1.0
+        │       │   │   ├── clawmeet_api 0.1.0
+        │       │   │   └── clawmeet_agent 0.1.0
+        │       │   │       ├── clawmeet_tests 0.1.0
+        │       │   │       ├── clawmeet_scheduler 0.1.0
+        │       │   │       ├── clawmeet_integration_tests 0.1.0
+        │       │   │       └── clawmeet_api 0.1.0
+        │       │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api 1.0.0-test-arm-qemu.0
+        │       ├── clawmeet_credit 0.1.0
+        │       ├── clawmeet_api 0.1.0
+        │       └── clawmeet_agent 0.1.0
+        ├── markdown-it-sub 1.0.2
+        │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+        ├── markdown-it-ruby 1.0.2
+        │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+        ├── markdown-it-footnote 0.2.0
+        │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+        ├── markdown-it-block-spoiler 1.0.3
+        │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+        └── lemmy_utils 1.0.0-test-arm-qemu.0
+
+Crate:     rsa
+Version:   0.9.10
+Title:     Marvin Attack: potential key recovery through timing sidechannels
+Date:      2023-11-22
+ID:        RUSTSEC-2023-0071
+URL:       https://rustsec.org/advisories/RUSTSEC-2023-0071
+Severity:  5.9 (medium)
+Solution:  No fixed upgrade is available!
+Dependency tree:
+rsa 0.9.10
+├── jsonwebtoken 10.3.0
+│   └── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│       │       └── lemmy_server 1.0.0-test-arm-qemu.0
+│       ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│       │   └── lemmy_server 1.0.0-test-arm-qemu.0
+│       ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│       │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│       │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   │   └── lemmy_apub 1.0.0-test-arm-qemu.0
+│       │   │       └── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│       │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   │   ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       │   │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       │   │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       │   │       └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│       │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│       ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│       ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       ├── lemmy_api 1.0.0-test-arm-qemu.0
+│       └── clawmeet_api 0.1.0
+│           ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│           ├── clawmeet_ui 0.1.0
+│           │   └── clawmeet_integration_tests 0.1.0
+│           ├── clawmeet_tests 0.1.0
+│           └── clawmeet_integration_tests 0.1.0
+└── activitypub_federation 0.7.0-beta.8
+    ├── lemmy_server 1.0.0-test-arm-qemu.0
+    ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    ├── lemmy_diesel_utils 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+    │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+    │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+    │   │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+    │   │   ├── clawmeet_triggers 0.1.0
+    │   │   │   ├── clawmeet_tests 0.1.0
+    │   │   │   └── clawmeet_integration_tests 0.1.0
+    │   │   ├── clawmeet_scheduler 0.1.0
+    │   │   ├── clawmeet_credit 0.1.0
+    │   │   │   ├── clawmeet_triggers 0.1.0
+    │   │   │   ├── clawmeet_tests 0.1.0
+    │   │   │   ├── clawmeet_scheduler 0.1.0
+    │   │   │   ├── clawmeet_integration_tests 0.1.0
+    │   │   │   └── clawmeet_api 0.1.0
+    │   │   ├── clawmeet_audit 0.1.0
+    │   │   │   └── clawmeet_tests 0.1.0
+    │   │   ├── clawmeet_api 0.1.0
+    │   │   └── clawmeet_agent 0.1.0
+    │   │       ├── clawmeet_tests 0.1.0
+    │   │       ├── clawmeet_scheduler 0.1.0
+    │   │       ├── clawmeet_integration_tests 0.1.0
+    │   │       └── clawmeet_api 0.1.0
+    │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+    ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+    ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    └── lemmy_api 1.0.0-test-arm-qemu.0
+
+Crate:     time
+Version:   0.3.44
+Title:     Denial of Service via Stack Exhaustion
+Date:      2026-02-05
+ID:        RUSTSEC-2026-0009
+URL:       https://rustsec.org/advisories/RUSTSEC-2026-0009
+Severity:  6.8 (medium)
+Solution:  Upgrade to >=0.3.47
+Dependency tree:
+time 0.3.44
+├── simple_asn1 0.6.3
+│   └── jsonwebtoken 10.3.0
+│       └── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│           ├── lemmy_server 1.0.0-test-arm-qemu.0
+│           ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│           │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│           │   └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│           │       └── lemmy_server 1.0.0-test-arm-qemu.0
+│           ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│           │   └── lemmy_server 1.0.0-test-arm-qemu.0
+│           ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│           │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│           │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│           │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│           │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│           │   │   └── lemmy_apub 1.0.0-test-arm-qemu.0
+│           │   │       └── lemmy_server 1.0.0-test-arm-qemu.0
+│           │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│           │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│           │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│           │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+│           │   │   ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│           │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│           │   │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+│           │   │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│           │   │       └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│           │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│           ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│           ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│           ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│           ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│           ├── lemmy_api 1.0.0-test-arm-qemu.0
+│           └── clawmeet_api 0.1.0
+│               ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│               ├── clawmeet_ui 0.1.0
+│               │   └── clawmeet_integration_tests 0.1.0
+│               ├── clawmeet_tests 0.1.0
+│               └── clawmeet_integration_tests 0.1.0
+├── serde_with 3.17.0
+│   ├── lemmy_utils 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_diesel_utils 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   │   │   └── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │   │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   │   │   └── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   │   │   ├── clawmeet_triggers 0.1.0
+│   │   │   │   │   ├── clawmeet_tests 0.1.0
+│   │   │   │   │   └── clawmeet_integration_tests 0.1.0
+│   │   │   │   ├── clawmeet_scheduler 0.1.0
+│   │   │   │   ├── clawmeet_credit 0.1.0
+│   │   │   │   │   ├── clawmeet_triggers 0.1.0
+│   │   │   │   │   ├── clawmeet_tests 0.1.0
+│   │   │   │   │   ├── clawmeet_scheduler 0.1.0
+│   │   │   │   │   ├── clawmeet_integration_tests 0.1.0
+│   │   │   │   │   └── clawmeet_api 0.1.0
+│   │   │   │   ├── clawmeet_audit 0.1.0
+│   │   │   │   │   └── clawmeet_tests 0.1.0
+│   │   │   │   ├── clawmeet_api 0.1.0
+│   │   │   │   └── clawmeet_agent 0.1.0
+│   │   │   │       ├── clawmeet_tests 0.1.0
+│   │   │   │       ├── clawmeet_scheduler 0.1.0
+│   │   │   │       ├── clawmeet_integration_tests 0.1.0
+│   │   │   │       └── clawmeet_api 0.1.0
+│   │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+│   │   ├── clawmeet_credit 0.1.0
+│   │   ├── clawmeet_api 0.1.0
+│   │   └── clawmeet_agent 0.1.0
+│   ├── lemmy_diesel_utils 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_moderator 0.19.14
+│   │   └── lemmy_api_common 0.19.14
+│   │       └── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_views_actor 0.19.14
+│   │   └── lemmy_api_common 0.19.14
+│   ├── lemmy_db_views 0.19.14
+│   │   └── lemmy_api_common 0.19.14
+│   ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+│   ├── lemmy_db_schema 0.19.14
+│   │   ├── lemmy_db_views_moderator 0.19.14
+│   │   ├── lemmy_db_views_actor 0.19.14
+│   │   ├── lemmy_db_views 0.19.14
+│   │   └── lemmy_api_common 0.19.14
+│   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   └── lemmy_api_common 0.19.14
+├── plist 1.8.0
+│   └── syntect 5.3.0
+│       └── markdown-it 0.6.1
+│           ├── markdown-it-sup 1.0.2
+│           │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+│           ├── markdown-it-sub 1.0.2
+│           │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+│           ├── markdown-it-ruby 1.0.2
+│           │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+│           ├── markdown-it-footnote 0.2.0
+│           │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+│           ├── markdown-it-block-spoiler 1.0.3
+│           │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+│           └── lemmy_utils 1.0.0-test-arm-qemu.0
+├── cookie 0.16.2
+│   └── actix-web 4.13.0
+│       ├── tracing-actix-web 0.7.21
+│       │   └── lemmy_server 1.0.0-test-arm-qemu.0
+│       ├── lemmy_utils 1.0.0-test-arm-qemu.0
+│       ├── lemmy_server 1.0.0-test-arm-qemu.0
+│       ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│       ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+│       ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│       ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│       ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│       ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│       ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│       ├── lemmy_api 1.0.0-test-arm-qemu.0
+│       ├── clawmeet_ui 0.1.0
+│       ├── clawmeet_integration_tests 0.1.0
+│       ├── clawmeet_api 0.1.0
+│       ├── actix-web-prom 0.10.0
+│       │   └── lemmy_routes 1.0.0-test-arm-qemu.0
+│       ├── actix-web-httpauth 0.8.2
+│       │   └── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│       ├── actix-extensible-rate-limit 0.4.0
+│       │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+│       ├── actix-cors 0.7.1
+│       │   └── lemmy_routes 1.0.0-test-arm-qemu.0
+│       └── activitypub_federation 0.7.0-beta.8
+│           ├── lemmy_server 1.0.0-test-arm-qemu.0
+│           ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│           ├── lemmy_diesel_utils 1.0.0-test-arm-qemu.0
+│           ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│           ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│           ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│           ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│           ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│           ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│           ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│           └── lemmy_api 1.0.0-test-arm-qemu.0
+└── actix-web 4.13.0
+
+Crate:     wasmtime
+Version:   37.0.3
+Title:     Guest-controlled resource exhaustion in WASI implementations
+Date:      2026-02-24
+ID:        RUSTSEC-2026-0020
+URL:       https://rustsec.org/advisories/RUSTSEC-2026-0020
+Severity:  6.9 (medium)
+Solution:  Upgrade to >=24.0.6, <25.0.0 OR >=36.0.6, <37.0.0 OR >=40.0.4, <41.0.0 OR >=41.0.4
+Dependency tree:
+wasmtime 37.0.3
+├── wiggle 37.0.3
+│   ├── wasi-common 37.0.3
+│   │   └── extism 1.13.0
+│   │       ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+│   │       │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│   │       │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│   │       │   │   └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│   │       │   │       └── lemmy_server 1.0.0-test-arm-qemu.0
+│   │       │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│   │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│   │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│   │       │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+│   │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│   │       │   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│   │       │   │   │   └── lemmy_apub 1.0.0-test-arm-qemu.0
+│   │       │   │   │       └── lemmy_server 1.0.0-test-arm-qemu.0
+│   │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│   │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │       │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │       │   │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+│   │       │   │   │   ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│   │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │       │   │   │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+│   │       │   │   │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │       │   │   │       └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│   │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │       │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│   │       │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│   │       │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+│   │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+│   │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+│   │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+│   │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+│   │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+│   │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │       │   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+│   │       │   │   └── clawmeet_api 0.1.0
+│   │       │   │       ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+│   │       │   │       ├── clawmeet_ui 0.1.0
+│   │       │   │       │   └── clawmeet_integration_tests 0.1.0
+│   │       │   │       ├── clawmeet_tests 0.1.0
+│   │       │   │       └── clawmeet_integration_tests 0.1.0
+│   │       │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │       │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │       │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │       │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │       ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+│   │       │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   │       │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+│   │       │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+│   │       │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+│   │       │   └── lemmy_api 1.0.0-test-arm-qemu.0
+│   │       └── lemmy_api_utils 1.0.0-test-arm-qemu.0
+│   └── extism 1.13.0
+├── wasi-common 37.0.3
+└── extism 1.13.0
+
+Crate:     wasmtime
+Version:   37.0.3
+Title:     Panic adding excessive fields to a `wasi:http/types.fields` instance
+Date:      2026-02-24
+ID:        RUSTSEC-2026-0021
+URL:       https://rustsec.org/advisories/RUSTSEC-2026-0021
+Severity:  6.9 (medium)
+Solution:  Upgrade to >=24.0.6, <25.0.0 OR >=36.0.6, <37.0.0 OR >=40.0.4, <41.0.0 OR >=41.0.4
+
+Crate:     wasmtime
+Version:   37.0.3
+Title:     Wasmtime segfault or unused out-of-sandbox load with `f64.copysign` operator on x86-64
+Date:      2026-01-26
+ID:        RUSTSEC-2026-0006
+URL:       https://rustsec.org/advisories/RUSTSEC-2026-0006
+Severity:  4.1 (medium)
+Solution:  Upgrade to >=41.0.1 OR >=40.0.3, <41.0.0 OR >=36.0.5, <37.0.0 OR <29.0.0
+
+Crate:     bincode
+Version:   1.3.3
+Warning:   unmaintained
+Title:     Bincode is unmaintained
+Date:      2025-12-16
+ID:        RUSTSEC-2025-0141
+URL:       https://rustsec.org/advisories/RUSTSEC-2025-0141
+Dependency tree:
+bincode 1.3.3
+└── syntect 5.3.0
+    └── markdown-it 0.6.1
+        ├── markdown-it-sup 1.0.2
+        │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │       │       └── lemmy_server 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_email 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   └── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   │   │       └── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   │   │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   │   │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   │   │       └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   └── clawmeet_api 0.1.0
+        │       │   │       ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │       │   │       ├── clawmeet_ui 0.1.0
+        │       │   │       │   └── clawmeet_integration_tests 0.1.0
+        │       │   │       ├── clawmeet_tests 0.1.0
+        │       │   │       └── clawmeet_integration_tests 0.1.0
+        │       │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_diesel_utils 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── clawmeet_triggers 0.1.0
+        │       │   │   │   ├── clawmeet_tests 0.1.0
+        │       │   │   │   └── clawmeet_integration_tests 0.1.0
+        │       │   │   ├── clawmeet_scheduler 0.1.0
+        │       │   │   ├── clawmeet_credit 0.1.0
+        │       │   │   │   ├── clawmeet_triggers 0.1.0
+        │       │   │   │   ├── clawmeet_tests 0.1.0
+        │       │   │   │   ├── clawmeet_scheduler 0.1.0
+        │       │   │   │   ├── clawmeet_integration_tests 0.1.0
+        │       │   │   │   └── clawmeet_api 0.1.0
+        │       │   │   ├── clawmeet_audit 0.1.0
+        │       │   │   │   └── clawmeet_tests 0.1.0
+        │       │   │   ├── clawmeet_api 0.1.0
+        │       │   │   └── clawmeet_agent 0.1.0
+        │       │   │       ├── clawmeet_tests 0.1.0
+        │       │   │       ├── clawmeet_scheduler 0.1.0
+        │       │   │       ├── clawmeet_integration_tests 0.1.0
+        │       │   │       └── clawmeet_api 0.1.0
+        │       │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api 1.0.0-test-arm-qemu.0
+        │       ├── clawmeet_credit 0.1.0
+        │       ├── clawmeet_api 0.1.0
+        │       └── clawmeet_agent 0.1.0
+        ├── markdown-it-sub 1.0.2
+        │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+        ├── markdown-it-ruby 1.0.2
+        │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+        ├── markdown-it-footnote 0.2.0
+        │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+        ├── markdown-it-block-spoiler 1.0.3
+        │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+        └── lemmy_utils 1.0.0-test-arm-qemu.0
+
+Crate:     derivative
+Version:   2.2.0
+Warning:   unmaintained
+Title:     `derivative` is unmaintained; consider using an alternative
+Date:      2024-06-26
+ID:        RUSTSEC-2024-0388
+URL:       https://rustsec.org/advisories/RUSTSEC-2024-0388
+Dependency tree:
+derivative 2.2.0
+└── markdown-it 0.6.1
+    ├── markdown-it-sup 1.0.2
+    │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+    │       │   └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+    │       │       └── lemmy_server 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_email 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+    │       │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │       │   │   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+    │       │   │   │   │   └── lemmy_apub 1.0.0-test-arm-qemu.0
+    │       │   │   │   │       └── lemmy_server 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │       │   │   │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+    │       │   │   │   │   ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+    │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   │   │   │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+    │       │   │   │   │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │       │   │   │   │       └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+    │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   │   └── clawmeet_api 0.1.0
+    │       │   │       ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+    │       │   │       ├── clawmeet_ui 0.1.0
+    │       │   │       │   └── clawmeet_integration_tests 0.1.0
+    │       │   │       ├── clawmeet_tests 0.1.0
+    │       │   │       └── clawmeet_integration_tests 0.1.0
+    │       │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_diesel_utils 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   │   └── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+    │       │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+    │       │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+    │       │   │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │       │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   │   └── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+    │       │   │   ├── clawmeet_triggers 0.1.0
+    │       │   │   │   ├── clawmeet_tests 0.1.0
+    │       │   │   │   └── clawmeet_integration_tests 0.1.0
+    │       │   │   ├── clawmeet_scheduler 0.1.0
+    │       │   │   ├── clawmeet_credit 0.1.0
+    │       │   │   │   ├── clawmeet_triggers 0.1.0
+    │       │   │   │   ├── clawmeet_tests 0.1.0
+    │       │   │   │   ├── clawmeet_scheduler 0.1.0
+    │       │   │   │   ├── clawmeet_integration_tests 0.1.0
+    │       │   │   │   └── clawmeet_api 0.1.0
+    │       │   │   ├── clawmeet_audit 0.1.0
+    │       │   │   │   └── clawmeet_tests 0.1.0
+    │       │   │   ├── clawmeet_api 0.1.0
+    │       │   │   └── clawmeet_agent 0.1.0
+    │       │   │       ├── clawmeet_tests 0.1.0
+    │       │   │       ├── clawmeet_scheduler 0.1.0
+    │       │   │       ├── clawmeet_integration_tests 0.1.0
+    │       │   │       └── clawmeet_api 0.1.0
+    │       │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       │   └── lemmy_api 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_apub 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+    │       ├── lemmy_api 1.0.0-test-arm-qemu.0
+    │       ├── clawmeet_credit 0.1.0
+    │       ├── clawmeet_api 0.1.0
+    │       └── clawmeet_agent 0.1.0
+    ├── markdown-it-sub 1.0.2
+    │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+    ├── markdown-it-ruby 1.0.2
+    │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+    ├── markdown-it-footnote 0.2.0
+    │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+    ├── markdown-it-block-spoiler 1.0.3
+    │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+    └── lemmy_utils 1.0.0-test-arm-qemu.0
+
+Crate:     paste
+Version:   1.0.15
+Warning:   unmaintained
+Title:     paste - no longer maintained
+Date:      2024-10-07
+ID:        RUSTSEC-2024-0436
+URL:       https://rustsec.org/advisories/RUSTSEC-2024-0436
+Dependency tree:
+paste 1.0.15
+└── rmp 0.8.14
+    └── rmp-serde 1.3.0
+        └── extism-convert 1.13.0
+            ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+            │   │   └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+            │   │       └── lemmy_server 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+            │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+            │   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+            │   │   │   └── lemmy_apub 1.0.0-test-arm-qemu.0
+            │   │   │       └── lemmy_server 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+            │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+            │   │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+            │   │   │   ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+            │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+            │   │   │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+            │   │   │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+            │   │   │       └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+            │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+            │   │   └── clawmeet_api 0.1.0
+            │   │       ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+            │   │       ├── clawmeet_ui 0.1.0
+            │   │       │   └── clawmeet_integration_tests 0.1.0
+            │   │       ├── clawmeet_tests 0.1.0
+            │   │       └── clawmeet_integration_tests 0.1.0
+            │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+            │   └── lemmy_api 1.0.0-test-arm-qemu.0
+            ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+            │   └── lemmy_api 1.0.0-test-arm-qemu.0
+            ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+            └── extism 1.13.0
+                ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+                ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+                └── lemmy_api_utils 1.0.0-test-arm-qemu.0
+
+Crate:     rustls-pemfile
+Version:   1.0.4
+Warning:   unmaintained
+Title:     rustls-pemfile is unmaintained
+Date:      2025-11-28
+ID:        RUSTSEC-2025-0134
+URL:       https://rustsec.org/advisories/RUSTSEC-2025-0134
+Dependency tree:
+rustls-pemfile 1.0.4
+└── reqwest 0.11.27
+    └── webmention 0.6.0
+        └── lemmy_api_utils 1.0.0-test-arm-qemu.0
+            ├── lemmy_server 1.0.0-test-arm-qemu.0
+            ├── lemmy_routes 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+            │   └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+            │       └── lemmy_server 1.0.0-test-arm-qemu.0
+            ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+            │   └── lemmy_server 1.0.0-test-arm-qemu.0
+            ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+            │   │   └── lemmy_apub 1.0.0-test-arm-qemu.0
+            │   │       └── lemmy_server 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+            │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+            │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+            │   │   ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+            │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+            │   │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+            │   │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+            │   │       └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+            │   └── lemmy_api 1.0.0-test-arm-qemu.0
+            ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+            ├── lemmy_apub 1.0.0-test-arm-qemu.0
+            ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+            ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+            ├── lemmy_api 1.0.0-test-arm-qemu.0
+            └── clawmeet_api 0.1.0
+                ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+                ├── clawmeet_ui 0.1.0
+                │   └── clawmeet_integration_tests 0.1.0
+                ├── clawmeet_tests 0.1.0
+                └── clawmeet_integration_tests 0.1.0
+
+Crate:     rustls-pemfile
+Version:   2.2.0
+Warning:   unmaintained
+Title:     rustls-pemfile is unmaintained
+Date:      2025-11-28
+ID:        RUSTSEC-2025-0134
+URL:       https://rustsec.org/advisories/RUSTSEC-2025-0134
+Dependency tree:
+rustls-pemfile 2.2.0
+└── ureq 3.1.2
+    └── extism 1.13.0
+        ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │   │   └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │   │       └── lemmy_server 1.0.0-test-arm-qemu.0
+        │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+        │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │   │   │   └── lemmy_apub 1.0.0-test-arm-qemu.0
+        │   │   │       └── lemmy_server 1.0.0-test-arm-qemu.0
+        │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │   │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+        │   │   │   ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │   │   │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │   │   │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │   │   │       └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+        │   │   └── clawmeet_api 0.1.0
+        │   │       ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │   │       ├── clawmeet_ui 0.1.0
+        │   │       │   └── clawmeet_integration_tests 0.1.0
+        │   │       ├── clawmeet_tests 0.1.0
+        │   │       └── clawmeet_integration_tests 0.1.0
+        │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+        │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        └── lemmy_api_utils 1.0.0-test-arm-qemu.0
+
+Crate:     yaml-rust
+Version:   0.4.5
+Warning:   unmaintained
+Title:     yaml-rust is unmaintained.
+Date:      2024-03-20
+ID:        RUSTSEC-2024-0320
+URL:       https://rustsec.org/advisories/RUSTSEC-2024-0320
+Dependency tree:
+yaml-rust 0.4.5
+└── syntect 5.3.0
+    └── markdown-it 0.6.1
+        ├── markdown-it-sup 1.0.2
+        │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │       │       └── lemmy_server 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_email 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   └── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   │   │       └── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   │   └── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   │   │       ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   │   │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   │   │       └── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   └── clawmeet_api 0.1.0
+        │       │   │       ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │       │   │       ├── clawmeet_ui 0.1.0
+        │       │   │       │   └── clawmeet_integration_tests 0.1.0
+        │       │   │       ├── clawmeet_tests 0.1.0
+        │       │   │       └── clawmeet_integration_tests 0.1.0
+        │       │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_diesel_utils 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_server 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_routes 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_email 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_post_comment_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   │   ├── lemmy_api 1.0.0-test-arm-qemu.0
+        │       │   │   ├── clawmeet_triggers 0.1.0
+        │       │   │   │   ├── clawmeet_tests 0.1.0
+        │       │   │   │   └── clawmeet_integration_tests 0.1.0
+        │       │   │   ├── clawmeet_scheduler 0.1.0
+        │       │   │   ├── clawmeet_credit 0.1.0
+        │       │   │   │   ├── clawmeet_triggers 0.1.0
+        │       │   │   │   ├── clawmeet_tests 0.1.0
+        │       │   │   │   ├── clawmeet_scheduler 0.1.0
+        │       │   │   │   ├── clawmeet_integration_tests 0.1.0
+        │       │   │   │   └── clawmeet_api 0.1.0
+        │       │   │   ├── clawmeet_audit 0.1.0
+        │       │   │   │   └── clawmeet_tests 0.1.0
+        │       │   │   ├── clawmeet_api 0.1.0
+        │       │   │   └── clawmeet_agent 0.1.0
+        │       │   │       ├── clawmeet_tests 0.1.0
+        │       │   │       ├── clawmeet_scheduler 0.1.0
+        │       │   │       ├── clawmeet_integration_tests 0.1.0
+        │       │   │       └── clawmeet_api 0.1.0
+        │       │   ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       │   ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       │   └── lemmy_api 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_vote 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_site 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_search_combined 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_report_combined 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_registration_applications 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_private_message 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_post 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_person_saved_combined 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_person_liked_combined 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_person_content_combined 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_person 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_notification 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_modlog 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_local_user 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_local_image 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_custom_emoji 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_community_moderator 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_community_follower_approval 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_community_follower 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_community 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_views_comment 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_db_schema 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_apub_send 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_apub_objects 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_apub_activities 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_apub 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api_utils 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api_routes_v3 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api_routes 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api_crud 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api_common 1.0.0-test-arm-qemu.0
+        │       ├── lemmy_api 1.0.0-test-arm-qemu.0
+        │       ├── clawmeet_credit 0.1.0
+        │       ├── clawmeet_api 0.1.0
+        │       └── clawmeet_agent 0.1.0
+        ├── markdown-it-sub 1.0.2
+        │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+        ├── markdown-it-ruby 1.0.2
+        │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+        ├── markdown-it-footnote 0.2.0
+        │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+        ├── markdown-it-block-spoiler 1.0.3
+        │   └── lemmy_utils 1.0.0-test-arm-qemu.0
+        └── lemmy_utils 1.0.0-test-arm-qemu.0
+
+error: 7 vulnerabilities found!
+warning: 6 allowed warnings found

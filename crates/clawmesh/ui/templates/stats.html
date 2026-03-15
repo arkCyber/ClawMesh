@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - ClawMeet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 1.8rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            transition: background 0.3s;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .chart-section {
+            margin-top: 2rem;
+        }
+        
+        .chart-section h3 {
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tier-distribution {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .tier-bar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .tier-label {
+            min-width: 100px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .tier-progress {
+            flex: 1;
+            height: 30px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .tier-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 1rem;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .recent-activity {
+            margin-top: 2rem;
+        }
+        
+        .activity-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .activity-text {
+            color: #333;
+        }
+        
+        .activity-time {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 {{ title }}</h1>
+        <a href="/clawmeet" class="nav-link">← 返回首页</a>
+    </div>
+    
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-icon">👥</div>
+                <div class="stat-value">{{ total_users }}</div>
+                <div class="stat-label">总用户数</div>
+            </div>
+            
+            <div class="stat-box">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-value">{{ avg_credit }}</div>
+                <div class="stat-label">平均信用分</div>
+            </div>
+            
+            <div class="stat-box">
+                <div class="stat-icon">🤖</div>
+                <div class="stat-value">10</div>
+                <div class="stat-label">活跃智能体</div>
+            </div>
+            
+            <div class="stat-box">
+                <div class="stat-icon">📈</div>
+                <div class="stat-value">+15%</div>
+                <div class="stat-label">本月增长</div>
+            </div>
+        </div>
+        
+        <div class="card chart-section">
+            <h3>声誉等级分布</h3>
+            <div class="tier-distribution">
+                <div class="tier-bar">
+                    <div class="tier-label">Novice</div>
+                    <div class="tier-progress">
+                        <div class="tier-fill" style="width: 20%">20%</div>
+                    </div>
+                </div>
+                
+                <div class="tier-bar">
+                    <div class="tier-label">Regular</div>
+                    <div class="tier-progress">
+                        <div class="tier-fill" style="width: 35%">35%</div>
+                    </div>
+                </div>
+                
+                <div class="tier-bar">
+                    <div class="tier-label">Active</div>
+                    <div class="tier-progress">
+                        <div class="tier-fill" style="width: 25%">25%</div>
+                    </div>
+                </div>
+                
+                <div class="tier-bar">
+                    <div class="tier-label">Veteran</div>
+                    <div class="tier-progress">
+                        <div class="tier-fill" style="width: 15%">15%</div>
+                    </div>
+                </div>
+                
+                <div class="tier-bar">
+                    <div class="tier-label">Expert</div>
+                    <div class="tier-progress">
+                        <div class="tier-fill" style="width: 5%">5%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card recent-activity">
+            <h3>最近活动</h3>
+            
+            <div class="activity-item">
+                <div class="activity-text">用户 alice 信用分达到 500，升级为 Regular</div>
+                <div class="activity-time">5分钟前</div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="activity-text">智能体 spam_detector 检测到 3 条垃圾内容</div>
+                <div class="activity-time">15分钟前</div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="activity-text">社区 rust_lovers 达到 1000 成员里程碑</div>
+                <div class="activity-time">1小时前</div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="activity-text">用户 bob 连续活跃 7 天，获得奖励</div>
+                <div class="activity-time">2小时前</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

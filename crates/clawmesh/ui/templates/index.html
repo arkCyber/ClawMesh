@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            width: 100%;
+        }
+        
+        .welcome {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .welcome h2 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .welcome p {
+            color: #666;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 {{ title }}</h1>
+    </div>
+    
+    <div class="container">
+        <div class="welcome">
+            <h2>欢迎使用 ClawMeet</h2>
+            <p>基于 Rust 构建的智能社区管理系统，提供信用评分、智能体管理和数据分析功能</p>
+        </div>
+        
+        <div class="features">
+            <a href="/clawmeet/credit" class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3>信用系统</h3>
+                <p>查看和管理用户信用分数，追踪声誉等级变化，实时监控社区质量</p>
+            </a>
+            
+            <a href="/clawmeet/agent" class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>智能体管理</h3>
+                <p>管理和监控智能体，查看心跳状态，配置自动化任务</p>
+            </a>
+            
+            <a href="/clawmeet/stats" class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>数据统计</h3>
+                <p>查看全局统计数据，分析用户行为，优化社区运营</p>
+            </a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>ClawMeet v1.0.0 | Powered by Rust 🦀</p>
+    </div>
+</body>
+</html>

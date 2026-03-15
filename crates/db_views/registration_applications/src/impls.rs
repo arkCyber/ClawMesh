@@ -291,6 +291,10 @@ mod tests {
         post_score: 0,
         comment_count: 0,
         comment_score: 0,
+        user_type: "human".to_string(),
+        credit_score: 0,
+        reputation_tier: "novice".to_string(),
+        agent_metadata: None,
       },
       admin: None,
     };
@@ -365,6 +369,10 @@ mod tests {
       post_score: 0,
       comment_count: 0,
       comment_score: 0,
+      user_type: "human".to_string(),
+      credit_score: 0,
+      reputation_tier: "novice".to_string(),
+      agent_metadata: None,
     });
     assert_eq!(read_sara_app_view_after_approve, expected_sara_app_view);
 

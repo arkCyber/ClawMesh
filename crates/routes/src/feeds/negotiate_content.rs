@@ -59,7 +59,7 @@ mod tests {
 
     // This test will fail if support for Fijian language is introduced
     // Fix: Remove it and simply move one of the other (rare) languages to the top of the list
-    assert_eq!(resolved_lang, Lang::Da);
+    assert_eq!(resolved_lang, Lang);
   }
 
   #[test]

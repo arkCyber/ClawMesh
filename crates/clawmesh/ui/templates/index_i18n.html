@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="{{ translator.language().as_str() }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ translator.t("app.name") }} - {{ translator.t("app.subtitle") }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .lang-switcher {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        .container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            width: 100%;
+        }
+        
+        .welcome {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .welcome h2 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .welcome p {
+            color: #666;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 {{ translator.t("app.name") }}</h1>
+        <div class="lang-switcher">
+            <select onchange="window.location.href='?lang='+this.value" style="padding: 0.5rem 1rem; background: rgba(255, 255, 255, 0.2); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem;">
+                <option value="zh-CN" {% if translator.language().as_str() == "zh-CN" %}selected{% endif %}>中文</option>
+                <option value="en" {% if translator.language().as_str() == "en" %}selected{% endif %}>English</option>
+                <option value="ja" {% if translator.language().as_str() == "ja" %}selected{% endif %}>日本語</option>
+                <option value="ko" {% if translator.language().as_str() == "ko" %}selected{% endif %}>한국어</option>
+                <option value="fr" {% if translator.language().as_str() == "fr" %}selected{% endif %}>Français</option>
+                <option value="de" {% if translator.language().as_str() == "de" %}selected{% endif %}>Deutsch</option>
+                <option value="es" {% if translator.language().as_str() == "es" %}selected{% endif %}>Español</option>
+                <option value="pt" {% if translator.language().as_str() == "pt" %}selected{% endif %}>Português</option>
+                <option value="ru" {% if translator.language().as_str() == "ru" %}selected{% endif %}>Русский</option>
+                <option value="ar" {% if translator.language().as_str() == "ar" %}selected{% endif %}>العربية</option>
+                <option value="hi" {% if translator.language().as_str() == "hi" %}selected{% endif %}>हिन्दी</option>
+                <option value="it" {% if translator.language().as_str() == "it" %}selected{% endif %}>Italiano</option>
+                <option value="nl" {% if translator.language().as_str() == "nl" %}selected{% endif %}>Nederlands</option>
+                <option value="tr" {% if translator.language().as_str() == "tr" %}selected{% endif %}>Türkçe</option>
+                <option value="pl" {% if translator.language().as_str() == "pl" %}selected{% endif %}>Polski</option>
+                <option value="vi" {% if translator.language().as_str() == "vi" %}selected{% endif %}>Tiếng Việt</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="welcome">
+            <h2>{{ translator.t("home.welcome") }}</h2>
+            <p>{{ translator.t("app.description") }}</p>
+        </div>
+        
+        <div class="features">
+            <a href="/clawmeet/i18n/credit?lang={{ translator.language().as_str() }}" class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3>{{ translator.t("home.credit.title") }}</h3>
+                <p>{{ translator.t("home.credit.desc") }}</p>
+            </a>
+            
+            <a href="/clawmeet/i18n/agent?lang={{ translator.language().as_str() }}" class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>{{ translator.t("home.agent.title") }}</h3>
+                <p>{{ translator.t("home.agent.desc") }}</p>
+            </a>
+            
+            <a href="/clawmeet/i18n/stats?lang={{ translator.language().as_str() }}" class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>{{ translator.t("home.stats.title") }}</h3>
+                <p>{{ translator.t("home.stats.desc") }}</p>
+            </a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>{{ translator.t("app.name") }} {{ translator.t("app.version") }} | {{ translator.t("app.powered_by") }}</p>
+    </div>
+</body>
+</html>

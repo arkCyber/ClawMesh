@@ -174,6 +174,11 @@ impl Object for ApubPerson {
       ),
       matrix_user_id: person.matrix_user_id,
       instance_id,
+      // ClawMesh specific fields
+      user_type: None,
+      credit_score: None,
+      reputation_tier: None,
+      agent_metadata: None,
     };
     let person = DbPerson::upsert(&mut context.pool(), &person_form).await?;
 

@@ -58,6 +58,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "actix"
+version = "0.13.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "de7fa236829ba0841304542f7614c42b80fca007455315c45c785ccfa873a85b"
+dependencies = [
+ "actix-macros",
+ "actix-rt",
+ "actix_derive",
+ "bitflags 2.10.0",
+ "bytes",
+ "crossbeam-channel",
+ "futures-core",
+ "futures-sink",
+ "futures-task",
+ "futures-util",
+ "log",
+ "once_cell",
+ "parking_lot",
+ "pin-project-lite",
+ "smallvec",
+ "tokio",
+ "tokio-util",
+]
+
+[[package]]
 name = "actix-codec"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -96,7 +121,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "65f69685bde52e3c1d9ec47aa42ae4eca7f27c04661774423b68b26a06757181"
 dependencies = [
  "actix-web",
- "dashmap",
+ "dashmap 6.1.0",
  "futures",
  "log",
  "thiserror 1.0.69",
@@ -168,6 +193,7 @@ version = "2.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "92589714878ca59a7626ea19734f0e07a6a875197eec751bb5d3f99e64998c63"
 dependencies = [
+ "actix-macros",
  "futures-core",
  "tokio",
 ]
@@ -314,6 +340,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "actix_derive"
+version = "0.6.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b6ac1e58cded18cb28ddc17143c4dea5345b3ad575e14f32f66e4054a56eb271"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.108",
+]
+
+[[package]]
 name = "addr2line"
 version = "0.25.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -457,10 +494,63 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c3d036a3c4ab069c7b410a2ce876bd74808d2d0888a82667669f8e783a898bf1"
 
 [[package]]
+name = "arc-swap"
+version = "1.8.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f9f3647c145568cec02c42054e07bdf9a5a698e15b466fb2341bfc393cd24aa5"
+dependencies = [
+ "rustversion",
+]
+
+[[package]]
 name = "argparse"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3f8ebf5827e4ac4fd5946560e6a99776ea73b596d80898f357007317a7141e47"
+
+[[package]]
+name = "askama"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b79091df18a97caea757e28cd2d5fda49c6cd4bd01ddffd7ff01ace0c0ad2c28"
+dependencies = [
+ "askama_derive",
+ "askama_escape",
+ "humansize",
+ "num-traits",
+ "percent-encoding",
+]
+
+[[package]]
+name = "askama_derive"
+version = "0.12.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "19fe8d6cb13c4714962c072ea496f3392015f0989b1a2847bb4b2d9effd71d83"
+dependencies = [
+ "askama_parser",
+ "basic-toml",
+ "mime",
+ "mime_guess",
+ "proc-macro2",
+ "quote",
+ "serde",
+ "syn 2.0.108",
+]
+
+[[package]]
+name = "askama_escape"
+version = "0.10.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "619743e34b5ba4e9703bba34deac3427c72507c7159f5fd030aea8cac0cfe341"
+
+[[package]]
+name = "askama_parser"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "acb1161c6b64d1c3d83108213c2a2533a342ac225aabd0bda218278c2ddb00c0"
+dependencies = [
+ "nom 7.1.3",
+]
 
 [[package]]
 name = "assert-json-diff"
@@ -561,6 +651,15 @@ name = "base64ct"
 version = "1.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "55248b47b0caf0546f7988906588779981c43bb1bc9d0c44087278f80cdb44ba"
+
+[[package]]
+name = "basic-toml"
+version = "0.1.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ba62675e8242a4c4e806d12f11d136e626e6c8361d6b829310732241652a178a"
+dependencies = [
+ "serde",
+]
 
 [[package]]
 name = "bcrypt"
@@ -907,6 +1006,293 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3a822ea5bc7590f9d40f1ba12c0dc3c2760f3482c6984db1573ad11031420831"
 
 [[package]]
+name = "clawmeet_agent"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "diesel",
+ "diesel-async",
+ "lemmy_db_schema 1.0.0-test-arm-qemu.0",
+ "lemmy_db_schema_file",
+ "lemmy_utils 1.0.0-test-arm-qemu.0",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "clawmeet_api"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "anyhow",
+ "chrono",
+ "clawmeet_agent",
+ "clawmeet_credit",
+ "diesel",
+ "diesel-async",
+ "futures-util",
+ "jsonwebtoken 9.3.1",
+ "lemmy_api_utils",
+ "lemmy_db_schema 1.0.0-test-arm-qemu.0",
+ "lemmy_db_schema_file",
+ "lemmy_diesel_utils",
+ "lemmy_utils 1.0.0-test-arm-qemu.0",
+ "parking_lot",
+ "serde",
+ "serde_json",
+ "tracing",
+ "uuid",
+]
+
+[[package]]
+name = "clawmeet_audit"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "diesel",
+ "diesel-async",
+ "lemmy_db_schema 1.0.0-test-arm-qemu.0",
+ "lemmy_db_schema_file",
+ "serde",
+ "serde_json",
+ "tracing",
+]
+
+[[package]]
+name = "clawmeet_cache"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "dashmap 5.5.3",
+ "once_cell",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "clawmeet_config"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "once_cell",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "clawmeet_credit"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "diesel",
+ "diesel-async",
+ "lemmy_db_schema 1.0.0-test-arm-qemu.0",
+ "lemmy_db_schema_file",
+ "lemmy_utils 1.0.0-test-arm-qemu.0",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "clawmeet_filemanager"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytes",
+ "chrono",
+ "lemmy_db_schema_file",
+ "lemmy_utils 1.0.0-test-arm-qemu.0",
+ "mime",
+ "serde",
+ "serde_json",
+ "sha2",
+ "tempfile",
+ "tokio",
+ "tokio-test",
+ "tracing",
+ "uuid",
+]
+
+[[package]]
+name = "clawmeet_friendship"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "lemmy_db_schema_file",
+ "lemmy_diesel_utils",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "clawmeet_integration_tests"
+version = "0.1.0"
+dependencies = [
+ "actix-rt",
+ "actix-web",
+ "anyhow",
+ "clawmeet_agent",
+ "clawmeet_api",
+ "clawmeet_cache",
+ "clawmeet_config",
+ "clawmeet_credit",
+ "clawmeet_triggers",
+ "clawmeet_ui",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "clawmeet_messaging"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "base64 0.21.7",
+ "bincode",
+ "chrono",
+ "clawmeet_realtime",
+ "crc32fast",
+ "diesel",
+ "diesel-async",
+ "lemmy_db_schema 1.0.0-test-arm-qemu.0",
+ "lemmy_db_schema_file",
+ "lemmy_diesel_utils",
+ "lemmy_utils 1.0.0-test-arm-qemu.0",
+ "lru",
+ "parking_lot",
+ "redis",
+ "ring",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "thiserror 1.0.69",
+ "tokio",
+ "tokio-test",
+ "tracing",
+ "uuid",
+]
+
+[[package]]
+name = "clawmeet_notification"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "lemmy_db_schema_file",
+ "lemmy_utils 1.0.0-test-arm-qemu.0",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tokio-test",
+ "tracing",
+ "uuid",
+]
+
+[[package]]
+name = "clawmeet_realtime"
+version = "0.1.0"
+dependencies = [
+ "actix",
+ "actix-web",
+ "anyhow",
+ "chrono",
+ "futures",
+ "lemmy_db_schema_file",
+ "lemmy_utils 1.0.0-test-arm-qemu.0",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tokio-test",
+ "tracing",
+ "uuid",
+]
+
+[[package]]
+name = "clawmeet_scheduler"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clawmeet_agent",
+ "clawmeet_credit",
+ "diesel",
+ "diesel-async",
+ "lemmy_db_schema 1.0.0-test-arm-qemu.0",
+ "lemmy_db_schema_file",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "clawmeet_search"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "diesel",
+ "diesel-async",
+ "lemmy_db_schema_file",
+ "lemmy_utils 1.0.0-test-arm-qemu.0",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "clawmeet_tests"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clawmeet_agent",
+ "clawmeet_api",
+ "clawmeet_audit",
+ "clawmeet_cache",
+ "clawmeet_config",
+ "clawmeet_credit",
+ "clawmeet_triggers",
+ "tokio",
+]
+
+[[package]]
+name = "clawmeet_triggers"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clawmeet_credit",
+ "diesel",
+ "diesel-async",
+ "lemmy_db_schema 1.0.0-test-arm-qemu.0",
+ "lemmy_db_schema_file",
+ "tracing",
+]
+
+[[package]]
+name = "clawmeet_ui"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "askama",
+ "clawmeet_api",
+ "diesel",
+ "diesel-async",
+ "lemmy_db_schema 1.0.0-test-arm-qemu.0",
+ "lemmy_db_schema_file",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "clearurls"
 version = "0.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -951,7 +1337,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ba5a308b75df32fe02788e748662718f03fde005016435c444eea572398219fd"
 dependencies = [
  "bytes",
+ "futures-core",
  "memchr",
+ "pin-project-lite",
+ "tokio",
+ "tokio-util",
 ]
 
 [[package]]
@@ -1415,6 +1805,19 @@ dependencies = [
  "darling_core 0.21.3",
  "quote",
  "syn 2.0.108",
+]
+
+[[package]]
+name = "dashmap"
+version = "5.5.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "978747c1d849a7d2ee5e8adc0159961c48fb7e5db2f06af6723b80123bb53856"
+dependencies = [
+ "cfg-if",
+ "hashbrown 0.14.5",
+ "lock_api",
+ "once_cell",
+ "parking_lot_core",
 ]
 
 [[package]]
@@ -2443,6 +2846,8 @@ version = "0.15.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9229cfe53dfd69f0609a49f65461bd93001ea1ef889cd5529dd176593f5338a1"
 dependencies = [
+ "allocator-api2",
+ "equivalent",
  "foldhash",
  "serde",
 ]
@@ -2659,6 +3064,15 @@ name = "httpdate"
 version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "df3b46402a9d5adb4c86a0cf463f42e19994e3ee891101b1841f30a545cb49a9"
+
+[[package]]
+name = "humansize"
+version = "2.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6cb51c9a029ddc91b07a787f1d86b53ccfa49b0e86688c946ebe8d3555685dd7"
+dependencies = [
+ "libm",
+]
 
 [[package]]
 name = "hyper"
@@ -3115,6 +3529,21 @@ dependencies = [
 
 [[package]]
 name = "jsonwebtoken"
+version = "9.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5a87cc7a48537badeae96744432de36f4be2b4a34a05a5ef32e9dd8a1c169dde"
+dependencies = [
+ "base64 0.22.1",
+ "js-sys",
+ "pem",
+ "ring",
+ "serde",
+ "serde_json",
+ "simple_asn1",
+]
+
+[[package]]
+name = "jsonwebtoken"
 version = "10.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0529410abe238729a60b108898784df8984c87f6054c9c4fcacc47e4803c1ce1"
@@ -3320,8 +3749,10 @@ name = "lemmy_api_routes"
 version = "1.0.0-test-arm-qemu.0"
 dependencies = [
  "actix-web",
+ "clawmeet_api",
  "lemmy_api",
  "lemmy_api_crud",
+ "lemmy_api_routes_v3",
  "lemmy_routes",
  "lemmy_utils 1.0.0-test-arm-qemu.0",
 ]
@@ -3372,7 +3803,7 @@ dependencies = [
  "extism-manifest",
  "futures",
  "infer 0.19.0",
- "jsonwebtoken",
+ "jsonwebtoken 10.3.0",
  "lemmy_db_schema 1.0.0-test-arm-qemu.0",
  "lemmy_db_schema_file",
  "lemmy_db_views_comment",
@@ -3575,6 +4006,7 @@ dependencies = [
  "derive-new",
  "diesel",
  "diesel-async",
+ "diesel-derive-enum",
  "diesel-derive-newtype",
  "diesel-uplete",
  "diesel_ltree",
@@ -3592,6 +4024,7 @@ dependencies = [
  "tokio",
  "ts-rs",
  "url",
+ "uuid",
 ]
 
 [[package]]
@@ -4148,6 +4581,7 @@ dependencies = [
  "lettre",
  "rosetta-build",
  "rosetta-i18n",
+ "url",
  "uuid",
 ]
 
@@ -4251,7 +4685,7 @@ dependencies = [
  "cfg-if",
  "chrono",
  "clearurls",
- "dashmap",
+ "dashmap 6.1.0",
  "deser-hjson",
  "diesel",
  "doku",
@@ -4396,6 +4830,15 @@ name = "log"
 version = "0.4.28"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "34080505efa8e45a4b816c349525ebe327ceaa8559756f0356cba97ef3bf7432"
+
+[[package]]
+name = "lru"
+version = "0.12.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "234cf4f4a04dc1f57e24b96cc0cd600cf2af460d4161ac5ecdd0af8e1f3b2a38"
+dependencies = [
+ "hashbrown 0.15.5",
+]
 
 [[package]]
 name = "mac"
@@ -5625,6 +6068,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "redis"
+version = "0.24.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c580d9cbbe1d1b479e8d67cf9daf6a62c957e6846048408b80b43ac3f6af84cd"
+dependencies = [
+ "arc-swap",
+ "async-trait",
+ "bytes",
+ "combine",
+ "futures",
+ "futures-util",
+ "itoa",
+ "percent-encoding",
+ "pin-project-lite",
+ "ryu",
+ "sha1_smol",
+ "socket2 0.4.10",
+ "tokio",
+ "tokio-retry",
+ "tokio-util",
+ "url",
+]
+
+[[package]]
 name = "redox_syscall"
 version = "0.5.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6385,6 +6852,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "sha1_smol"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bbfa15b3dddfee50a0fff136974b3e1bde555604ba463834a7eb7deb6417705d"
+
+[[package]]
 name = "sha2"
 version = "0.10.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6493,6 +6966,16 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.108",
+]
+
+[[package]]
+name = "socket2"
+version = "0.4.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9f7916fc008ca5542385b89a3d3ce689953c143e9304a9bf8beec1de48994c0d"
+dependencies = [
+ "libc",
+ "winapi",
 ]
 
 [[package]]
@@ -7073,6 +7556,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "tokio-retry"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f57eb36ecbe0fc510036adff84824dd3c24bb781e21bfa67b69d556aa85214f"
+dependencies = [
+ "pin-project",
+ "rand 0.8.5",
+ "tokio",
+]
+
+[[package]]
 name = "tokio-rustls"
 version = "0.24.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7090,6 +7584,28 @@ checksum = "1729aa945f29d91ba541258c8df89027d5792d85a8841fb65e8bf0f4ede4ef61"
 dependencies = [
  "rustls 0.23.37",
  "tokio",
+]
+
+[[package]]
+name = "tokio-stream"
+version = "0.1.18"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "32da49809aab5c3bc678af03902d4ccddea2a87d028d86392a4b1560c6906c70"
+dependencies = [
+ "futures-core",
+ "pin-project-lite",
+ "tokio",
+]
+
+[[package]]
+name = "tokio-test"
+version = "0.4.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3f6d24790a10a7af737693a3e8f1d03faef7e6ca0cc99aae5066f533766de545"
+dependencies = [
+ "futures-core",
+ "tokio",
+ "tokio-stream",
 ]
 
 [[package]]

@@ -12,11 +12,13 @@ fn cache_header(seconds: usize) -> DefaultHeaders {
 }
 
 /// Set a 1 hour cache time
+#[must_use]
 pub fn cache_1hour() -> DefaultHeaders {
   cache_header(3600)
 }
 
 /// Set a 3 day cache time
+#[must_use]
 pub fn cache_3days() -> DefaultHeaders {
-  cache_header(259200)
+  cache_header(259_200)
 }

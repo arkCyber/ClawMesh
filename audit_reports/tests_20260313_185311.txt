@@ -1,0 +1,114 @@
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+warning: unused import: `anyhow::Result`
+ --> crates/clawmeet/cache/src/lib.rs:5:5
+  |
+5 | use anyhow::Result;
+  |     ^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `clawmeet_cache` (lib test) generated 1 warning (run `cargo fix --lib -p clawmeet_cache --tests` to apply 1 suggestion)
+warning: unused import: `lemmy_db_schema_file::schema::agent_heartbeats`
+  --> crates/clawmeet/agent/src/heartbeat.rs:54:9
+   |
+54 |     use lemmy_db_schema_file::schema::agent_heartbeats;
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `super::*`
+  --> crates/clawmeet/agent/src/heartbeat.rs:66:9
+   |
+66 |     use super::*;
+   |         ^^^^^^^^
+
+warning: unused import: `lemmy_db_schema_file::PersonId`
+ --> crates/clawmeet/agent/src/install.rs:5:5
+  |
+5 | use lemmy_db_schema_file::PersonId;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::*`
+ --> crates/clawmeet/agent/src/tests.rs:3:9
+  |
+3 |     use super::*;
+  |         ^^^^^^^^
+
+warning: unused import: `chrono::Utc`
+  --> crates/clawmeet/agent/src/lib.rs:51:9
+   |
+51 |     use chrono::Utc;
+   |         ^^^^^^^^^^^
+
+warning: unused import: `super`
+  --> crates/clawmeet/agent/src/install.rs:81:9
+   |
+81 |     use super::*;
+   |         ^^^^^
+
+warning: `clawmeet_agent` (lib test) generated 6 warnings (run `cargo fix --lib -p clawmeet_agent --tests` to apply 5 suggestions)
+warning: unused import: `super::*`
+ --> crates/clawmeet/credit/src/tests.rs:3:9
+  |
+3 |     use super::*;
+  |         ^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `clawmeet_credit` (lib test) generated 1 warning (run `cargo fix --lib -p clawmeet_credit --tests` to apply 1 suggestion)
+    Finished `test` profile [unoptimized] target(s) in 1m 57s
+     Running unittests src/lib.rs (target/debug/deps/clawmeet_agent-f21f44ce4b48ee21)
+
+running 10 tests
+test heartbeat::tests::test_heartbeat_interval ... ok
+test install::tests::test_agent_username_format ... ok
+test list::tests::test_agent_info_structure ... ok
+test tests::tests::test_agent_username_format ... ok
+test tests::tests::test_agent_metadata_structure ... ok
+test tests::tests::test_heartbeat_interval ... ok
+test tests::tests::test_heartbeat_timeout_calculation ... ok
+test validation::tests::test_heartbeat_interval_validation ... ok
+test validation::tests::test_metadata_validation ... ok
+test validation::tests::test_username_validation ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/clawmeet_cache-6235a397a450f63d)
+
+running 5 tests
+test tests::test_cache_stats ... ok
+test tests::test_tier_cache ... ok
+test tests::test_credit_cache ... ok
+test tests::test_stats_cache ... ok
+test tests::test_cache_expiration ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running unittests src/lib.rs (target/debug/deps/clawmeet_config-f2cb0b2094669e57)
+
+running 3 tests
+test tests::test_config_update ... ok
+test tests::test_default_config ... ok
+test tests::test_json_serialization ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/clawmeet_credit-d030ac7bac9d6264)
+
+running 10 tests
+test calculator::tests::test_credit_calculations ... ok
+test stats::tests::test_stats_calculation ... ok
+test permissions::tests::test_min_credit_requirements ... ok
+test tests::tests::test_credit_calculation ... ok
+test tests::tests::test_reputation_tiers ... ok
+test batch::tests::test_batch_operations ... ok
+test tests::tests::test_tier_transitions ... ok
+test tests::tests::test_credit_score_bounds ... ok
+test tier::tests::test_tier_calculation ... ok
+test tier::tests::test_tier_string_conversion ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

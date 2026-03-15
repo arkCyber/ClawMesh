@@ -1,0 +1,73 @@
+# ClawMesh Configuration Example
+# Copy this file to config.toml and adjust values for your deployment
+
+[server]
+# Server host (0.0.0.0 for all interfaces)
+host = "0.0.0.0"
+# Server port
+port = 8080
+# Number of worker threads (defaults to CPU count)
+workers = 8
+# Maximum blocking threads for blocking operations
+max_blocking_threads = 512
+# Request timeout in seconds
+request_timeout = 30
+
+[database]
+# PostgreSQL connection URL
+# Format: postgresql://username:password@host:port/database
+url = "postgresql://lemmy:password@localhost:5432/lemmy"
+# Maximum number of database connections in pool
+max_connections = 100
+# Minimum number of idle connections to maintain
+min_connections = 10
+# Connection timeout in seconds
+connection_timeout = 5
+# Idle connection timeout in seconds (10 minutes)
+idle_timeout = 600
+# Maximum connection lifetime in seconds (30 minutes)
+max_lifetime = 1800
+
+[websocket]
+# Maximum concurrent WebSocket connections
+# For 100K users, use 150000 with 10 servers (15K per server)
+max_connections = 15000
+# Heartbeat interval in seconds
+heartbeat_interval = 30
+# Connection timeout in seconds (no heartbeat)
+connection_timeout = 60
+# Number of connection shards (must be power of 2)
+# Higher values reduce lock contention
+shard_count = 256
+
+[rate_limit]
+# Enable rate limiting
+enabled = true
+# Maximum requests per minute for authenticated users
+max_requests_per_user = 100
+# Maximum requests per minute per IP address
+max_requests_per_ip = 1000
+# Burst allowance (extra requests allowed temporarily)
+burst_allowance = 20
+
+[monitoring]
+# Enable Prometheus metrics endpoint
+prometheus_enabled = true
+# Metrics endpoint path
+metrics_path = "/metrics"
+# Health check endpoint path
+health_path = "/health"
+
+# Redis Configuration (optional, for distributed caching)
+# Uncomment to enable Redis support
+# [redis]
+# url = "redis://localhost:6379"
+# pool_size = 100
+# timeout = 5000
+# max_retries = 3
+
+# Logging Configuration
+# [logging]
+# level = "info"  # trace, debug, info, warn, error
+# format = "json"  # json or text
+# output = "stdout"  # stdout or file path

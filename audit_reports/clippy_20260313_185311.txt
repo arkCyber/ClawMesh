@@ -1,0 +1,580 @@
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+   Compiling lemmy_diesel_utils v1.0.0-test-arm-qemu.0 (/Users/arksong/ClawMeet-Lemmy/crates/diesel_utils)
+error: package `lemmy_utils` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+  = note: `-D clippy::cargo-common-metadata` implied by `-D clippy::cargo`
+  = help: to override `-D clippy::cargo` add `#[allow(clippy::cargo_common_metadata)]`
+
+error: package `lemmy_utils` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_utils` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_schema` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_schema` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_schema` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_schema_file` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_schema_file` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_schema_file` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_diesel_utils` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_diesel_utils` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_diesel_utils` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_local_user` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_local_user` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_local_user` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_private_message` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_private_message` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_private_message` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_local_image` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_local_image` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_local_image` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_person` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_person` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_person` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_community` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_community` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_community` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_community_moderator` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_community_moderator` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_community_moderator` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_post` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_post` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_post` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_vote` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_vote` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_vote` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_comment` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_comment` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_comment` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_community_follower` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_community_follower` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_community_follower` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_community_follower_approval` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_community_follower_approval` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_community_follower_approval` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_custom_emoji` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_custom_emoji` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_custom_emoji` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_notification` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_notification` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_notification` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_modlog` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_modlog` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_modlog` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_person_content_combined` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_person_content_combined` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_person_content_combined` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_post_comment_combined` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_post_comment_combined` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_post_comment_combined` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_person_saved_combined` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_person_saved_combined` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_person_saved_combined` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_person_liked_combined` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_person_liked_combined` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_person_liked_combined` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_report_combined_sql` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_report_combined_sql` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_report_combined_sql` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_search_combined` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_search_combined` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_search_combined` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_site` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_site` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_site` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_registration_applications` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_registration_applications` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_db_views_registration_applications` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_api_common` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `lemmy_api_common` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_api` is missing `either package.license or package.license_file` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_api` is missing `package.repository` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_api` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_api` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_api` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_agent` is missing `either package.license or package.license_file` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_agent` is missing `package.repository` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_agent` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_agent` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_agent` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_credit` is missing `either package.license or package.license_file` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_credit` is missing `package.repository` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_credit` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_credit` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_credit` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_triggers` is missing `package.description` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_triggers` is missing `either package.license or package.license_file` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_triggers` is missing `package.repository` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_triggers` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_triggers` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_triggers` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_scheduler` is missing `package.description` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_scheduler` is missing `either package.license or package.license_file` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_scheduler` is missing `package.repository` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_scheduler` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_scheduler` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_scheduler` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_config` is missing `package.description` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_config` is missing `either package.license or package.license_file` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_config` is missing `package.repository` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_config` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_config` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_config` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_cache` is missing `package.description` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_cache` is missing `either package.license or package.license_file` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_cache` is missing `package.repository` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_cache` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_cache` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_cache` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_audit` is missing `package.description` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_audit` is missing `either package.license or package.license_file` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_audit` is missing `package.repository` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_audit` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_audit` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_audit` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_tests` is missing `package.description` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_tests` is missing `either package.license or package.license_file` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_tests` is missing `package.repository` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_tests` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_tests` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_tests` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_ui` is missing `package.description` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_ui` is missing `either package.license or package.license_file` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_ui` is missing `package.repository` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_ui` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_ui` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_ui` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_integration_tests` is missing `package.description` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_integration_tests` is missing `either package.license or package.license_file` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_integration_tests` is missing `package.repository` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_integration_tests` is missing `package.readme` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_integration_tests` is missing `package.keywords` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: package `clawmeet_integration_tests` is missing `package.categories` metadata
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#cargo_common_metadata
+
+error: could not compile `lemmy_diesel_utils` (build script) due to 143 previous errors

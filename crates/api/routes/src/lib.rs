@@ -1,4 +1,4 @@
-use actix_web::{guard, web::*};
+use actix_web::{guard, web, web::*};
 use lemmy_api::{
   comment::{
     distinguish::distinguish_comment,
@@ -187,8 +187,18 @@ use lemmy_routes::images::{
   },
 };
 use lemmy_utils::rate_limit::RateLimit;
+use lemmy_api_routes_v3 as api_routes_v3;
 
 pub fn config(cfg: &mut ServiceConfig, rate_limit: &RateLimit) {
+  cfg.service(
+    web::scope("/api/v3")
+      .wrap(rate_limit.message())
+      .configure(|cfg| api_routes_v3::config(cfg, rate_limit)),
+  );
+  
+  // ClawMesh API routes
+  cfg.configure(clawmesh_api::routes::config);
+  
   cfg.service(
     scope("/api/v4")
       .wrap(rate_limit.message())

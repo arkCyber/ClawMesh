@@ -1,0 +1,25 @@
+[package]
+name = "clawmesh_notification"
+version = "0.1.0"
+edition = "2024"
+description = "ClawMesh real-time notification system with push and email support"
+license = "AGPL-3.0"
+
+[dependencies]
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true, features = ["v4"] }
+
+# ClawMesh dependencies
+lemmy_db_schema_file = { workspace = true }
+lemmy_utils = { workspace = true }
+
+[dev-dependencies]
+tokio-test = "0.4.4"
+
+[lints]
+workspace = true

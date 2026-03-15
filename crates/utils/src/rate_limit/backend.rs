@@ -1,5 +1,5 @@
 //! The content in this file is mostly copy-pasted from library code:
-//! https://github.com/jacob-pro/actix-extensible-rate-limit/blob/master/src/backend/memory.rs
+//! <https://github.com/jacob-pro/actix-extensible-rate-limit/blob/master/src/backend/memory.rs>
 
 use crate::rate_limit::{ActionType, BucketConfig, input::LemmyInput};
 use actix_extensible_rate_limit::backend::{

@@ -4,8 +4,10 @@ use url::Url;
 #[cfg(feature = "full")]
 pub mod activity;
 pub mod actor_language;
+pub mod agent_heartbeat;
 pub mod combined;
 pub mod comment;
+pub mod credit_history;
 pub mod comment_report;
 pub mod community;
 #[cfg(feature = "full")]

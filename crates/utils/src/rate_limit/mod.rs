@@ -34,12 +34,14 @@ pub struct RateLimit {
 }
 
 impl RateLimit {
+  #[must_use]
   pub fn new(configs: EnumMap<ActionType, BucketConfig>) -> Self {
     Self {
       backend: LemmyBackend::new(configs, true),
     }
   }
 
+  #[must_use]
   pub fn with_debug_config() -> Self {
     Self::new(enum_map! {
       ActionType::Message => BucketConfig {
@@ -74,6 +76,9 @@ impl RateLimit {
   }
 
   #[expect(clippy::expect_used)]
+  /// # Panics
+  /// 
+  /// Panics if the internal lock is poisoned.
   pub fn set_config(&self, configs: EnumMap<ActionType, BucketConfig>) {
     *self.backend.configs.write().expect("write rwlock") = configs;
   }
