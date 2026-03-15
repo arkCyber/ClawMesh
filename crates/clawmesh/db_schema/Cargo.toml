@@ -1,0 +1,21 @@
+[package]
+name = "clawmesh_db_schema"
+version = "0.1.0"
+edition = "2021"
+description = "ClawMesh Database Schema with Full Lemmy Integration"
+
+[dependencies]
+lemmy_db_schema = { workspace = true, features = ["full"] }
+lemmy_db_schema_file = { workspace = true, features = ["full"] }
+lemmy_diesel_utils = { workspace = true }
+diesel = { workspace = true }
+diesel-async = { workspace = true }
+chrono = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+uuid = { version = "1.0", features = ["v4", "serde"] }
+
+[dev-dependencies]
+tokio = { workspace = true }

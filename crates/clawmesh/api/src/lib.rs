@@ -15,6 +15,7 @@ pub mod friendship;
 pub mod graceful_shutdown;
 pub mod health;
 pub mod lemmy_extensions;
+pub mod lemmy_api_v3;
 pub mod metrics;
 pub mod permissions;
 pub mod rate_limit;

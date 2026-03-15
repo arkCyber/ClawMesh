@@ -5,6 +5,14 @@ edition = "2021"
 
 [dependencies]
 lemmy_db_schema_file = { path = "../../db_schema_file", features = ["full"] }
+lemmy_db_views_post = { path = "../../db_views/post", features = ["full"] }
+lemmy_db_views_comment = { path = "../../db_views/comment", features = ["full"] }
+lemmy_db_views_community = { path = "../../db_views/community", features = ["full"] }
+lemmy_db_views_vote = { path = "../../db_views/vote", features = ["full"] }
+lemmy_db_views_notification = { path = "../../db_views/notification", features = ["full"] }
+lemmy_db_views_modlog = { path = "../../db_views/modlog", features = ["full"] }
+lemmy_db_views_search_combined = { path = "../../db_views/search_combined", features = ["full"] }
+lemmy_db_schema = { workspace = true }
 diesel = { workspace = true }
 diesel-async = { workspace = true }
 chrono = { workspace = true }
@@ -13,6 +21,7 @@ serde_json = { workspace = true }
 anyhow = { workspace = true }
 tracing = { workspace = true }
 uuid = { version = "1.0", features = ["v4", "serde"] }
+i_love_jesus = { workspace = true }
 
 [dev-dependencies]
 tokio = { workspace = true }

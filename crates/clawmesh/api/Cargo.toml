@@ -20,6 +20,14 @@ lemmy_db_schema_file = { workspace = true, features = ["full"] }
 lemmy_utils = { workspace = true }
 lemmy_api_utils = { workspace = true }
 lemmy_diesel_utils = { workspace = true }
+lemmy_api = { workspace = true }
+lemmy_db_views_post = { path = "../../db_views/post", features = ["full"] }
+lemmy_db_views_comment = { path = "../../db_views/comment", features = ["full"] }
+lemmy_db_views_community = { path = "../../db_views/community", features = ["full"] }
+lemmy_db_views_vote = { path = "../../db_views/vote", features = ["full"] }
+lemmy_db_views_notification = { path = "../../db_views/notification", features = ["full"] }
+lemmy_db_views_modlog = { path = "../../db_views/modlog", features = ["full"] }
+lemmy_db_views_search_combined = { path = "../../db_views/search_combined", features = ["full"] }
 actix-web = { workspace = true }
 diesel = { workspace = true }
 diesel-async = { workspace = true }

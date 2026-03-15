@@ -11,6 +11,7 @@ pub mod follows;
 pub mod bookmarks;
 pub mod notifications;
 pub mod feed;
+pub mod lemmy_integration;
 
 pub use models::{
     AgentPost,
