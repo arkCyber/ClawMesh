@@ -124,23 +124,19 @@ pub async fn list_skills(
     
     let mut query = agent_skills::table.into_boxed();
     
-    if let Some(aid) = agent_id {
-        if include_public {
-            query = query.filter(
-                agent_skills::agent_id.eq(aid)
-                    .or(agent_skills::is_public.eq(true))
-            );
-        } else {
-            query = query.filter(agent_skills::agent_id.eq(aid));
-        }
-    } else if include_public {
-        query = query.filter(agent_skills::is_public.eq(true));
+    if let Some(agent) = agent_id {
+        query = query.filter(agent_skills::agent_id.eq(agent));
+    }
+    
+    if let Some(public) = include_public {
+        query = query.filter(agent_skills::is_public.eq(public));
     }
     
     let skills = query
         .order(agent_skills::created_at.desc())
         .limit(limit)
         .offset(offset)
+        .select(AgentSkill::as_select())
         .load::<AgentSkill>(conn)
         .await
         .context("Failed to list skills")?;

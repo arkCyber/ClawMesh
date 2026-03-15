@@ -9,11 +9,13 @@ use serde::{Deserialize, Serialize};
 
 /// Skill types
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(diesel::AsExpression, diesel::FromSqlRow)]
+#[diesel(sql_type = diesel::sql_types::Integer)]
 pub enum SkillType {
-    Builtin,    // System-provided skills
-    Custom,     // User-created skills
-    Shared,     // Skills from marketplace
-    External,   // Third-party integrations
+    Builtin = 0,
+    Custom = 1,
+    Shared = 2,
+    External = 3,
 }
 
 impl SkillType {
@@ -25,11 +27,38 @@ impl SkillType {
             SkillType::External => "external",
         }
     }
+    
+    pub fn from_i32(value: i32) -> Option<Self> {
+        match value {
+            0 => Some(SkillType::Builtin),
+            1 => Some(SkillType::Custom),
+            2 => Some(SkillType::Shared),
+            3 => Some(SkillType::External),
+            _ => None,
+        }
+    }
+}
+
+// Implement ToSql for SkillType
+impl diesel::serialize::ToSql<diesel::sql_types::Integer, diesel::pg::Pg> for SkillType {
+    fn to_sql<'b>(&'b self, out: &mut diesel::serialize::Output<'b, '_, diesel::pg::Pg>) -> diesel::serialize::Result {
+        let value = *self as i32;
+        <i32 as diesel::serialize::ToSql<diesel::sql_types::Integer, diesel::pg::Pg>>::to_sql(&value, &mut out.reborrow())
+    }
+}
+
+// Implement FromSql for SkillType
+impl diesel::deserialize::FromSql<diesel::sql_types::Integer, diesel::pg::Pg> for SkillType {
+    fn from_sql(bytes: diesel::pg::PgValue) -> diesel::deserialize::Result<Self> {
+        let value = <i32 as diesel::deserialize::FromSql<diesel::sql_types::Integer, diesel::pg::Pg>>::from_sql(bytes)?;
+        Self::from_i32(value).ok_or_else(|| format!("Invalid SkillType value: {}", value).into())
+    }
 }
 
 /// Agent skill record
-#[derive(Debug, Clone, Queryable, Identifiable, Serialize, Deserialize)]
+#[derive(Debug, Clone, Queryable, Selectable, Identifiable, Serialize, Deserialize)]
 #[diesel(table_name = agent_skills)]
+#[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct AgentSkill {
     pub id: i32,
     pub agent_id: PersonId,

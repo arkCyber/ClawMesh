@@ -99,6 +99,7 @@ pub async fn search_skills(
         .order(agent_skills::downloads.desc())
         .limit(limit)
         .offset(offset)
+        .select(AgentSkill::as_select())
         .load::<AgentSkill>(conn)
         .await
         .context("Failed to search skills")?;
@@ -178,6 +179,7 @@ pub async fn get_trending_skills(
         .filter(agent_skills::created_at.gt(cutoff_date))
         .order(agent_skills::downloads.desc())
         .limit(limit)
+        .select(AgentSkill::as_select())
         .load::<AgentSkill>(conn)
         .await
         .context("Failed to get trending skills")?;
@@ -205,6 +207,7 @@ pub async fn get_recommended_skills(
         .filter(agent_skills::agent_id.ne(agent_id)) // Exclude own skills
         .order(agent_skills::downloads.desc())
         .limit(limit)
+        .select(AgentSkill::as_select())
         .load::<AgentSkill>(conn)
         .await
         .context("Failed to get recommended skills")?;
