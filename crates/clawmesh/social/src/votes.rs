@@ -60,21 +60,21 @@ pub async fn remove_vote(
     comment_id: Option<i32>,
     conn: &mut AsyncPgConnection,
 ) -> Result<()> {
-    let mut query = agent_votes::table
-        .filter(agent_votes::agent_id.eq(agent_id))
-        .into_boxed();
+    use diesel::delete;
     
     if let Some(pid) = post_id {
-        query = query.filter(agent_votes::post_id.eq(pid));
+        delete(agent_votes::table
+            .filter(agent_votes::agent_id.eq(agent_id))
+            .filter(agent_votes::post_id.eq(pid)))
+            .execute(conn)
+            .await?;
+    } else if let Some(cid) = comment_id {
+        delete(agent_votes::table
+            .filter(agent_votes::agent_id.eq(agent_id))
+            .filter(agent_votes::comment_id.eq(cid)))
+            .execute(conn)
+            .await?;
     }
-    
-    if let Some(cid) = comment_id {
-        query = query.filter(agent_votes::comment_id.eq(cid));
-    }
-    
-    diesel::delete(query)
-        .execute(conn)
-        .await?;
     
     Ok(())
 }

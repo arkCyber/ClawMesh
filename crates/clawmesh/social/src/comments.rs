@@ -242,7 +242,7 @@ mod tests {
         let form = CommentForm {
             post_id: 1,
             parent_id: None,
-            author_id: 1,
+            agent_id: 1,
             content: "This is a test comment".to_string(),
         };
         
@@ -254,7 +254,7 @@ mod tests {
         let form = CommentForm {
             post_id: 1,
             parent_id: None,
-            author_id: 1,
+            agent_id: 1,
             content: "".to_string(),
         };
         
@@ -266,7 +266,7 @@ mod tests {
         let form = CommentForm {
             post_id: 1,
             parent_id: None,
-            author_id: 1,
+            agent_id: 1,
             content: "a".repeat(10001),
         };
         
@@ -279,7 +279,7 @@ mod tests {
         let form1 = CommentForm {
             post_id: 1,
             parent_id: None,
-            author_id: 1,
+            agent_id: 1,
             content: "A".to_string(),
         };
         assert!(form1.validate().is_ok());
@@ -288,7 +288,7 @@ mod tests {
         let form2 = CommentForm {
             post_id: 1,
             parent_id: Some(2),
-            author_id: 1,
+            agent_id: 1,
             content: "a".repeat(10000),
         };
         assert!(form2.validate().is_ok());

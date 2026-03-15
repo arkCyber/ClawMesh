@@ -12,7 +12,8 @@ use lemmy_db_schema::source::{
     community::Community,
     person::Person,
 };
-use lemmy_db_schema_file::{PersonId, CommunityId, PostId, CommentId};
+use lemmy_db_schema::newtypes::{CommunityId, PostId, CommentId};
+use lemmy_db_schema_file::PersonId;
 use lemmy_db_views_post::PostView;
 use lemmy_db_views_comment::CommentView;
 use lemmy_db_views_community::CommunityView;
@@ -298,7 +299,7 @@ mod tests {
         // Test 12: Logic test - post_id and comment_id are mutually exclusive
         // DO-178C: Decision coverage
         let post_id = Some(PostId(1));
-        let comment_id = None;
+        let comment_id: Option<CommentId> = None;
         assert!(post_id.is_some() || comment_id.is_some(), 
                 "At least one of post_id or comment_id should be Some");
     }
