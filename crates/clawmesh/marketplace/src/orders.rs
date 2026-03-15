@@ -283,3 +283,162 @@ fn is_valid_status_transition(current: i32, new: i32) -> bool {
         _ => false,
     }
 }
+
+// ============================================================================
+// TESTS - DO-178C Level A Compliance
+// ============================================================================
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::models::{OrderForm, OrderStatus};
+
+    #[test]
+    fn test_order_form_validation_valid() {
+        let form = OrderForm {
+            product_id: 1,
+            buyer_id: 2,
+            seller_id: 3,
+            quantity: 5,
+            total_price: 5000,
+            shipping_address: Some("123 Test St".to_string()),
+        };
+        
+        assert!(form.validate().is_ok());
+    }
+
+    #[test]
+    fn test_order_form_validation_zero_quantity() {
+        let form = OrderForm {
+            product_id: 1,
+            buyer_id: 2,
+            seller_id: 3,
+            quantity: 0,
+            total_price: 0,
+            shipping_address: None,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_order_form_validation_negative_quantity() {
+        let form = OrderForm {
+            product_id: 1,
+            buyer_id: 2,
+            seller_id: 3,
+            quantity: -1,
+            total_price: 1000,
+            shipping_address: None,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_order_form_validation_zero_price() {
+        let form = OrderForm {
+            product_id: 1,
+            buyer_id: 2,
+            seller_id: 3,
+            quantity: 1,
+            total_price: 0,
+            shipping_address: None,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_order_form_validation_same_buyer_seller() {
+        let form = OrderForm {
+            product_id: 1,
+            buyer_id: 2,
+            seller_id: 2,
+            quantity: 1,
+            total_price: 1000,
+            shipping_address: None,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_order_status_transition_valid() {
+        // Pending -> Confirmed
+        assert!(is_valid_status_transition(
+            OrderStatus::Pending as i32,
+            OrderStatus::Confirmed as i32
+        ));
+
+        // Confirmed -> Processing
+        assert!(is_valid_status_transition(
+            OrderStatus::Confirmed as i32,
+            OrderStatus::Processing as i32
+        ));
+
+        // Processing -> Completed
+        assert!(is_valid_status_transition(
+            OrderStatus::Processing as i32,
+            OrderStatus::Completed as i32
+        ));
+
+        // Completed -> Refunded
+        assert!(is_valid_status_transition(
+            OrderStatus::Completed as i32,
+            OrderStatus::Refunded as i32
+        ));
+
+        // Pending -> Cancelled
+        assert!(is_valid_status_transition(
+            OrderStatus::Pending as i32,
+            OrderStatus::Cancelled as i32
+        ));
+    }
+
+    #[test]
+    fn test_order_status_transition_invalid() {
+        // Completed -> Pending (invalid)
+        assert!(!is_valid_status_transition(
+            OrderStatus::Completed as i32,
+            OrderStatus::Pending as i32
+        ));
+
+        // Cancelled -> Confirmed (invalid)
+        assert!(!is_valid_status_transition(
+            OrderStatus::Cancelled as i32,
+            OrderStatus::Confirmed as i32
+        ));
+
+        // Processing -> Pending (invalid)
+        assert!(!is_valid_status_transition(
+            OrderStatus::Processing as i32,
+            OrderStatus::Pending as i32
+        ));
+    }
+
+    #[test]
+    fn test_order_form_validation_boundary_values() {
+        // Test minimum valid quantity
+        let form1 = OrderForm {
+            product_id: 1,
+            buyer_id: 2,
+            seller_id: 3,
+            quantity: 1,
+            total_price: 1,
+            shipping_address: None,
+        };
+        assert!(form1.validate().is_ok());
+
+        // Test maximum valid quantity
+        let form2 = OrderForm {
+            product_id: 1,
+            buyer_id: 2,
+            seller_id: 3,
+            quantity: i32::MAX,
+            total_price: i64::MAX,
+            shipping_address: Some("a".repeat(500)),
+        };
+        assert!(form2.validate().is_ok());
+    }
+}

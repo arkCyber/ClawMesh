@@ -249,14 +249,14 @@ pub async fn is_member(
     agent_id: i32,
     conn: &mut AsyncPgConnection,
 ) -> Result<bool> {
-    let is_member = agent_workspace_members::table
+    let member_count: i64 = agent_workspace_members::table
         .filter(agent_workspace_members::workspace_id.eq(workspace_id))
         .filter(agent_workspace_members::agent_id.eq(agent_id))
-        .select(diesel::dsl::exists(agent_workspace_members::id))
+        .count()
         .get_result(conn)
         .await?;
     
-    Ok(is_member)
+    Ok(member_count > 0)
 }
 
 /// Check member permission
@@ -305,4 +305,86 @@ pub async fn update_member_activity(
     .await?;
     
     Ok(())
+}
+
+// ============================================================================
+// TESTS - DO-178C Level A Compliance
+// ============================================================================
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::models::{WorkspaceMemberForm, WorkspaceRole};
+
+    #[test]
+    fn test_workspace_role_permissions() {
+        // Test Owner permissions
+        assert!(WorkspaceRole::Owner.can_manage_members());
+        assert!(WorkspaceRole::Owner.can_create_tasks());
+        assert!(WorkspaceRole::Owner.can_edit_workspace());
+
+        // Test Admin permissions
+        assert!(WorkspaceRole::Admin.can_manage_members());
+        assert!(WorkspaceRole::Admin.can_create_tasks());
+        assert!(WorkspaceRole::Admin.can_edit_workspace());
+
+        // Test Member permissions
+        assert!(!WorkspaceRole::Member.can_manage_members());
+        assert!(WorkspaceRole::Member.can_create_tasks());
+        assert!(!WorkspaceRole::Member.can_edit_workspace());
+
+        // Test Viewer permissions
+        assert!(!WorkspaceRole::Viewer.can_manage_members());
+        assert!(!WorkspaceRole::Viewer.can_create_tasks());
+        assert!(!WorkspaceRole::Viewer.can_edit_workspace());
+    }
+
+    #[test]
+    fn test_member_form_validation_valid() {
+        let form = WorkspaceMemberForm {
+            workspace_id: 1,
+            agent_id: 2,
+            role: WorkspaceRole::Member as i32,
+        };
+        
+        assert!(form.validate().is_ok());
+    }
+
+    #[test]
+    fn test_member_form_validation_invalid_role() {
+        let form = WorkspaceMemberForm {
+            workspace_id: 1,
+            agent_id: 2,
+            role: -1,
+        };
+        
+        assert!(form.validate().is_err());
+
+        let form2 = WorkspaceMemberForm {
+            workspace_id: 1,
+            agent_id: 2,
+            role: 4,
+        };
+        
+        assert!(form2.validate().is_err());
+    }
+
+    #[test]
+    fn test_member_form_validation_boundary_roles() {
+        // Test minimum valid role (Owner = 0)
+        let form1 = WorkspaceMemberForm {
+            workspace_id: 1,
+            agent_id: 2,
+            role: 0,
+        };
+        assert!(form1.validate().is_ok());
+
+        // Test maximum valid role (Viewer = 3)
+        let form2 = WorkspaceMemberForm {
+            workspace_id: 1,
+            agent_id: 2,
+            role: 3,
+        };
+        assert!(form2.validate().is_ok());
+    }
 }

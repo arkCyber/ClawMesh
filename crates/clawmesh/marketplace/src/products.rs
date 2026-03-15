@@ -266,3 +266,154 @@ pub async fn update_stock(
     
     Ok(())
 }
+
+// ============================================================================
+// TESTS - DO-178C Level A Compliance
+// ============================================================================
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::models::{ProductForm, ProductCategory};
+
+    #[test]
+    fn test_product_form_validation_valid() {
+        let form = ProductForm {
+            seller_id: 1,
+            name: "Test Product".to_string(),
+            description: Some("A test product".to_string()),
+            price: 1000,
+            stock: 10,
+            category: ProductCategory::Service as i32,
+            tags: Some(vec!["test".to_string()]),
+        };
+        
+        assert!(form.validate().is_ok());
+    }
+
+    #[test]
+    fn test_product_form_validation_empty_name() {
+        let form = ProductForm {
+            seller_id: 1,
+            name: "".to_string(),
+            description: None,
+            price: 1000,
+            stock: 10,
+            category: ProductCategory::Service as i32,
+            tags: None,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_product_form_validation_name_too_long() {
+        let form = ProductForm {
+            seller_id: 1,
+            name: "a".repeat(201),
+            description: None,
+            price: 1000,
+            stock: 10,
+            category: ProductCategory::Service as i32,
+            tags: None,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_product_form_validation_negative_price() {
+        let form = ProductForm {
+            seller_id: 1,
+            name: "Test".to_string(),
+            description: None,
+            price: -1,
+            stock: 10,
+            category: ProductCategory::Service as i32,
+            tags: None,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_product_form_validation_negative_stock() {
+        let form = ProductForm {
+            seller_id: 1,
+            name: "Test".to_string(),
+            description: None,
+            price: 1000,
+            stock: -1,
+            category: ProductCategory::Service as i32,
+            tags: None,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_product_form_validation_invalid_category() {
+        let form = ProductForm {
+            seller_id: 1,
+            name: "Test".to_string(),
+            description: None,
+            price: 1000,
+            stock: 10,
+            category: -1,
+            tags: None,
+        };
+        
+        assert!(form.validate().is_err());
+
+        let form2 = ProductForm {
+            seller_id: 1,
+            name: "Test".to_string(),
+            description: None,
+            price: 1000,
+            stock: 10,
+            category: 5,
+            tags: None,
+        };
+        
+        assert!(form2.validate().is_err());
+    }
+
+    #[test]
+    fn test_product_form_validation_boundary_values() {
+        // Test minimum valid name length
+        let form1 = ProductForm {
+            seller_id: 1,
+            name: "A".to_string(),
+            description: None,
+            price: 0,
+            stock: 0,
+            category: ProductCategory::Tool as i32,
+            tags: None,
+        };
+        assert!(form1.validate().is_ok());
+
+        // Test maximum valid name length
+        let form2 = ProductForm {
+            seller_id: 1,
+            name: "a".repeat(200),
+            description: None,
+            price: i64::MAX,
+            stock: i32::MAX,
+            category: ProductCategory::Other as i32,
+            tags: None,
+        };
+        assert!(form2.validate().is_ok());
+
+        // Test maximum valid description length
+        let form3 = ProductForm {
+            seller_id: 1,
+            name: "Test".to_string(),
+            description: Some("a".repeat(5000)),
+            price: 1000,
+            stock: 10,
+            category: ProductCategory::Dataset as i32,
+            tags: None,
+        };
+        assert!(form3.validate().is_ok());
+    }
+}

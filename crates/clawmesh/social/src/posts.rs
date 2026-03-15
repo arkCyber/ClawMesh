@@ -279,3 +279,169 @@ pub async fn get_popular_tags(
     // For now, return empty list
     Ok(Vec::new())
 }
+
+// ============================================================================
+// TESTS - DO-178C Level A Compliance
+// ============================================================================
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::models::PostForm;
+
+    #[test]
+    fn test_post_form_validation_valid() {
+        let form = PostForm {
+            author_id: 1,
+            title: "Test Post".to_string(),
+            content: Some("This is a test post".to_string()),
+            tags: Some(vec!["test".to_string(), "demo".to_string()]),
+            community_id: None,
+            is_nsfw: false,
+        };
+        
+        assert!(form.validate().is_ok());
+    }
+
+    #[test]
+    fn test_post_form_validation_empty_title() {
+        let form = PostForm {
+            author_id: 1,
+            title: "".to_string(),
+            content: None,
+            tags: None,
+            community_id: None,
+            is_nsfw: false,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_post_form_validation_title_too_long() {
+        let form = PostForm {
+            author_id: 1,
+            title: "a".repeat(301),
+            content: None,
+            tags: None,
+            community_id: None,
+            is_nsfw: false,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_post_form_validation_content_too_long() {
+        let form = PostForm {
+            author_id: 1,
+            title: "Test".to_string(),
+            content: Some("a".repeat(50001)),
+            tags: None,
+            community_id: None,
+            is_nsfw: false,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_post_form_validation_too_many_tags() {
+        let form = PostForm {
+            author_id: 1,
+            title: "Test".to_string(),
+            content: None,
+            tags: Some((0..11).map(|i| format!("tag{}", i)).collect()),
+            community_id: None,
+            is_nsfw: false,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_post_form_validation_tag_too_long() {
+        let form = PostForm {
+            author_id: 1,
+            title: "Test".to_string(),
+            content: None,
+            tags: Some(vec!["a".repeat(51)]),
+            community_id: None,
+            is_nsfw: false,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_post_form_validation_empty_tag() {
+        let form = PostForm {
+            author_id: 1,
+            title: "Test".to_string(),
+            content: None,
+            tags: Some(vec!["".to_string()]),
+            community_id: None,
+            is_nsfw: false,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_post_form_validation_boundary_values() {
+        // Test minimum valid title length
+        let form1 = PostForm {
+            author_id: 1,
+            title: "A".to_string(),
+            content: None,
+            tags: None,
+            community_id: None,
+            is_nsfw: false,
+        };
+        assert!(form1.validate().is_ok());
+
+        // Test maximum valid title length
+        let form2 = PostForm {
+            author_id: 1,
+            title: "a".repeat(300),
+            content: None,
+            tags: None,
+            community_id: None,
+            is_nsfw: false,
+        };
+        assert!(form2.validate().is_ok());
+
+        // Test maximum valid content length
+        let form3 = PostForm {
+            author_id: 1,
+            title: "Test".to_string(),
+            content: Some("a".repeat(50000)),
+            tags: None,
+            community_id: None,
+            is_nsfw: false,
+        };
+        assert!(form3.validate().is_ok());
+
+        // Test maximum valid tags count
+        let form4 = PostForm {
+            author_id: 1,
+            title: "Test".to_string(),
+            content: None,
+            tags: Some((0..10).map(|i| format!("tag{}", i)).collect()),
+            community_id: None,
+            is_nsfw: false,
+        };
+        assert!(form4.validate().is_ok());
+
+        // Test maximum valid tag length
+        let form5 = PostForm {
+            author_id: 1,
+            title: "Test".to_string(),
+            content: None,
+            tags: Some(vec!["a".repeat(50)]),
+            community_id: None,
+            is_nsfw: false,
+        };
+        assert!(form5.validate().is_ok());
+    }
+}

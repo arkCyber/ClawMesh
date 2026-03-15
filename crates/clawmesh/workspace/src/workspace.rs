@@ -262,13 +262,13 @@ pub async fn workspace_exists(
     workspace_id: i32,
     conn: &mut AsyncPgConnection,
 ) -> Result<bool> {
-    let exists = agent_workspaces::table
+    let count: i64 = agent_workspaces::table
         .filter(agent_workspaces::id.eq(workspace_id))
-        .select(diesel::dsl::exists(agent_workspaces::id))
+        .count()
         .get_result(conn)
         .await?;
     
-    Ok(exists)
+    Ok(count > 0)
 }
 
 /// Get workspaces owned by agent
@@ -282,4 +282,128 @@ pub async fn get_owned_workspaces(
         .load::<AgentWorkspace>(conn)
         .await
         .map_err(Into::into)
+}
+
+// ============================================================================
+// TESTS - DO-178C Level A Compliance
+// ============================================================================
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::models::WorkspaceForm;
+
+    // Note: These are unit tests for the business logic.
+    // Integration tests with database are in tests/integration_tests.rs
+
+    #[test]
+    fn test_workspace_form_validation_valid() {
+        let form = WorkspaceForm {
+            owner_id: 1,
+            name: "Test Workspace".to_string(),
+            description: Some("A test workspace".to_string()),
+            is_public: true,
+            max_members: 10,
+        };
+        
+        assert!(form.validate().is_ok());
+    }
+
+    #[test]
+    fn test_workspace_form_validation_empty_name() {
+        let form = WorkspaceForm {
+            owner_id: 1,
+            name: "".to_string(),
+            description: None,
+            is_public: true,
+            max_members: 10,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_workspace_form_validation_name_too_long() {
+        let form = WorkspaceForm {
+            owner_id: 1,
+            name: "a".repeat(101),
+            description: None,
+            is_public: true,
+            max_members: 10,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_workspace_form_validation_description_too_long() {
+        let form = WorkspaceForm {
+            owner_id: 1,
+            name: "Test".to_string(),
+            description: Some("a".repeat(1001)),
+            is_public: true,
+            max_members: 10,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_workspace_form_validation_max_members_too_low() {
+        let form = WorkspaceForm {
+            owner_id: 1,
+            name: "Test".to_string(),
+            description: None,
+            is_public: true,
+            max_members: 0,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_workspace_form_validation_max_members_too_high() {
+        let form = WorkspaceForm {
+            owner_id: 1,
+            name: "Test".to_string(),
+            description: None,
+            is_public: true,
+            max_members: 101,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_workspace_form_validation_boundary_values() {
+        // Test minimum valid name length
+        let form1 = WorkspaceForm {
+            owner_id: 1,
+            name: "A".to_string(),
+            description: None,
+            is_public: true,
+            max_members: 1,
+        };
+        assert!(form1.validate().is_ok());
+
+        // Test maximum valid name length
+        let form2 = WorkspaceForm {
+            owner_id: 1,
+            name: "a".repeat(100),
+            description: None,
+            is_public: true,
+            max_members: 100,
+        };
+        assert!(form2.validate().is_ok());
+
+        // Test maximum valid description length
+        let form3 = WorkspaceForm {
+            owner_id: 1,
+            name: "Test".to_string(),
+            description: Some("a".repeat(1000)),
+            is_public: true,
+            max_members: 50,
+        };
+        assert!(form3.validate().is_ok());
+    }
 }

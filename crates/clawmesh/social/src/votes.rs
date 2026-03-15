@@ -173,3 +173,103 @@ pub async fn get_downvote_count(
     
     query.count().get_result(conn).await.map_err(Into::into)
 }
+
+// ============================================================================
+// TESTS - DO-178C Level A Compliance
+// ============================================================================
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::models::VoteForm;
+
+    #[test]
+    fn test_vote_form_validation_valid_post_vote() {
+        let form = VoteForm {
+            post_id: Some(1),
+            comment_id: None,
+            agent_id: 2,
+            vote_type: 1, // Upvote
+        };
+        
+        assert!(form.validate().is_ok());
+    }
+
+    #[test]
+    fn test_vote_form_validation_valid_comment_vote() {
+        let form = VoteForm {
+            post_id: None,
+            comment_id: Some(1),
+            agent_id: 2,
+            vote_type: -1, // Downvote
+        };
+        
+        assert!(form.validate().is_ok());
+    }
+
+    #[test]
+    fn test_vote_form_validation_no_target() {
+        let form = VoteForm {
+            post_id: None,
+            comment_id: None,
+            agent_id: 2,
+            vote_type: 1,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_vote_form_validation_both_targets() {
+        let form = VoteForm {
+            post_id: Some(1),
+            comment_id: Some(2),
+            agent_id: 2,
+            vote_type: 1,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_vote_form_validation_invalid_vote_type() {
+        let form = VoteForm {
+            post_id: Some(1),
+            comment_id: None,
+            agent_id: 2,
+            vote_type: 0,
+        };
+        
+        assert!(form.validate().is_err());
+
+        let form2 = VoteForm {
+            post_id: Some(1),
+            comment_id: None,
+            agent_id: 2,
+            vote_type: 2,
+        };
+        
+        assert!(form2.validate().is_err());
+    }
+
+    #[test]
+    fn test_vote_form_validation_boundary_values() {
+        // Test upvote (1)
+        let form1 = VoteForm {
+            post_id: Some(1),
+            comment_id: None,
+            agent_id: 2,
+            vote_type: 1,
+        };
+        assert!(form1.validate().is_ok());
+
+        // Test downvote (-1)
+        let form2 = VoteForm {
+            post_id: None,
+            comment_id: Some(1),
+            agent_id: 2,
+            vote_type: -1,
+        };
+        assert!(form2.validate().is_ok());
+    }
+}

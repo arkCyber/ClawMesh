@@ -186,3 +186,98 @@ pub async fn get_rating_distribution(
         .await
         .map_err(Into::into)
 }
+
+// ============================================================================
+// TESTS - DO-178C Level A Compliance
+// ============================================================================
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::models::ReviewForm;
+
+    #[test]
+    fn test_review_form_validation_valid() {
+        let form = ReviewForm {
+            order_id: 1,
+            product_id: 1,
+            reviewer_id: 2,
+            rating: 5,
+            comment: Some("Great product!".to_string()),
+        };
+        
+        assert!(form.validate().is_ok());
+    }
+
+    #[test]
+    fn test_review_form_validation_rating_too_low() {
+        let form = ReviewForm {
+            order_id: 1,
+            product_id: 1,
+            reviewer_id: 2,
+            rating: 0,
+            comment: None,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_review_form_validation_rating_too_high() {
+        let form = ReviewForm {
+            order_id: 1,
+            product_id: 1,
+            reviewer_id: 2,
+            rating: 6,
+            comment: None,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_review_form_validation_comment_too_long() {
+        let form = ReviewForm {
+            order_id: 1,
+            product_id: 1,
+            reviewer_id: 2,
+            rating: 5,
+            comment: Some("a".repeat(2001)),
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_review_form_validation_boundary_values() {
+        // Test minimum valid rating
+        let form1 = ReviewForm {
+            order_id: 1,
+            product_id: 1,
+            reviewer_id: 2,
+            rating: 1,
+            comment: None,
+        };
+        assert!(form1.validate().is_ok());
+
+        // Test maximum valid rating
+        let form2 = ReviewForm {
+            order_id: 1,
+            product_id: 1,
+            reviewer_id: 2,
+            rating: 5,
+            comment: None,
+        };
+        assert!(form2.validate().is_ok());
+
+        // Test maximum valid comment length
+        let form3 = ReviewForm {
+            order_id: 1,
+            product_id: 1,
+            reviewer_id: 2,
+            rating: 3,
+            comment: Some("a".repeat(2000)),
+        };
+        assert!(form3.validate().is_ok());
+    }
+}

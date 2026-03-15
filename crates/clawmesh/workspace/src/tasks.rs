@@ -331,3 +331,161 @@ pub async fn get_tasks_by_priority(
         .await
         .map_err(Into::into)
 }
+
+// ============================================================================
+// TESTS - DO-178C Level A Compliance
+// ============================================================================
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::models::{WorkspaceTaskForm, TaskStatus, TaskPriority};
+
+    #[test]
+    fn test_task_form_validation_valid() {
+        let form = WorkspaceTaskForm {
+            workspace_id: 1,
+            title: "Test Task".to_string(),
+            description: Some("A test task".to_string()),
+            status: TaskStatus::Todo as i32,
+            priority: TaskPriority::Medium as i32,
+            assigned_to: Some(2),
+            created_by: 1,
+            due_date: None,
+        };
+        
+        assert!(form.validate().is_ok());
+    }
+
+    #[test]
+    fn test_task_form_validation_empty_title() {
+        let form = WorkspaceTaskForm {
+            workspace_id: 1,
+            title: "".to_string(),
+            description: None,
+            status: TaskStatus::Todo as i32,
+            priority: TaskPriority::Medium as i32,
+            assigned_to: None,
+            created_by: 1,
+            due_date: None,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_task_form_validation_title_too_long() {
+        let form = WorkspaceTaskForm {
+            workspace_id: 1,
+            title: "a".repeat(201),
+            description: None,
+            status: TaskStatus::Todo as i32,
+            priority: TaskPriority::Medium as i32,
+            assigned_to: None,
+            created_by: 1,
+            due_date: None,
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_task_form_validation_invalid_status() {
+        let form = WorkspaceTaskForm {
+            workspace_id: 1,
+            title: "Test".to_string(),
+            description: None,
+            status: -1,
+            priority: TaskPriority::Medium as i32,
+            assigned_to: None,
+            created_by: 1,
+            due_date: None,
+        };
+        
+        assert!(form.validate().is_err());
+
+        let form2 = WorkspaceTaskForm {
+            workspace_id: 1,
+            title: "Test".to_string(),
+            description: None,
+            status: 5,
+            priority: TaskPriority::Medium as i32,
+            assigned_to: None,
+            created_by: 1,
+            due_date: None,
+        };
+        
+        assert!(form2.validate().is_err());
+    }
+
+    #[test]
+    fn test_task_form_validation_invalid_priority() {
+        let form = WorkspaceTaskForm {
+            workspace_id: 1,
+            title: "Test".to_string(),
+            description: None,
+            status: TaskStatus::Todo as i32,
+            priority: -1,
+            assigned_to: None,
+            created_by: 1,
+            due_date: None,
+        };
+        
+        assert!(form.validate().is_err());
+
+        let form2 = WorkspaceTaskForm {
+            workspace_id: 1,
+            title: "Test".to_string(),
+            description: None,
+            status: TaskStatus::Todo as i32,
+            priority: 4,
+            assigned_to: None,
+            created_by: 1,
+            due_date: None,
+        };
+        
+        assert!(form2.validate().is_err());
+    }
+
+    #[test]
+    fn test_task_form_validation_boundary_values() {
+        // Test minimum valid title length
+        let form1 = WorkspaceTaskForm {
+            workspace_id: 1,
+            title: "A".to_string(),
+            description: None,
+            status: TaskStatus::Todo as i32,
+            priority: TaskPriority::Low as i32,
+            assigned_to: None,
+            created_by: 1,
+            due_date: None,
+        };
+        assert!(form1.validate().is_ok());
+
+        // Test maximum valid title length
+        let form2 = WorkspaceTaskForm {
+            workspace_id: 1,
+            title: "a".repeat(200),
+            description: None,
+            status: TaskStatus::Done as i32,
+            priority: TaskPriority::Critical as i32,
+            assigned_to: None,
+            created_by: 1,
+            due_date: None,
+        };
+        assert!(form2.validate().is_ok());
+
+        // Test maximum valid description length
+        let form3 = WorkspaceTaskForm {
+            workspace_id: 1,
+            title: "Test".to_string(),
+            description: Some("a".repeat(5000)),
+            status: TaskStatus::InProgress as i32,
+            priority: TaskPriority::High as i32,
+            assigned_to: None,
+            created_by: 1,
+            due_date: None,
+        };
+        assert!(form3.validate().is_ok());
+    }
+}

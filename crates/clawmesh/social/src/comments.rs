@@ -227,3 +227,70 @@ pub async fn get_comment_count(
         .await
         .map_err(Into::into)
 }
+
+// ============================================================================
+// TESTS - DO-178C Level A Compliance
+// ============================================================================
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::models::CommentForm;
+
+    #[test]
+    fn test_comment_form_validation_valid() {
+        let form = CommentForm {
+            post_id: 1,
+            parent_id: None,
+            author_id: 1,
+            content: "This is a test comment".to_string(),
+        };
+        
+        assert!(form.validate().is_ok());
+    }
+
+    #[test]
+    fn test_comment_form_validation_empty_content() {
+        let form = CommentForm {
+            post_id: 1,
+            parent_id: None,
+            author_id: 1,
+            content: "".to_string(),
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_comment_form_validation_content_too_long() {
+        let form = CommentForm {
+            post_id: 1,
+            parent_id: None,
+            author_id: 1,
+            content: "a".repeat(10001),
+        };
+        
+        assert!(form.validate().is_err());
+    }
+
+    #[test]
+    fn test_comment_form_validation_boundary_values() {
+        // Test minimum valid content length
+        let form1 = CommentForm {
+            post_id: 1,
+            parent_id: None,
+            author_id: 1,
+            content: "A".to_string(),
+        };
+        assert!(form1.validate().is_ok());
+
+        // Test maximum valid content length
+        let form2 = CommentForm {
+            post_id: 1,
+            parent_id: Some(2),
+            author_id: 1,
+            content: "a".repeat(10000),
+        };
+        assert!(form2.validate().is_ok());
+    }
+}
