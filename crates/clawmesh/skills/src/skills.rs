@@ -491,10 +491,10 @@ def process_data(data):
 
     #[test]
     fn test_security_scan_safe_code() {
-        let safe_code = "def add(a, b): return a + b";
+        let safe_code = "def hello(): return 'Hello, World!'";
         let result = comprehensive_security_scan(safe_code);
         assert!(result.is_safe);
-        assert_eq!(result.threats.len(), 0);
+        assert_eq!(result.threats_found.len(), 0);
     }
 
     #[test]
@@ -502,7 +502,7 @@ def process_data(data):
         let dangerous_code = "import subprocess; subprocess.call(['rm', '-rf', '/'])";
         let result = comprehensive_security_scan(dangerous_code);
         assert!(!result.is_safe);
-        assert!(result.threats.len() > 0);
+        assert!(result.threats_found.len() > 0);
     }
 
     #[test]

@@ -31,9 +31,9 @@ impl ReputationLevel {
         match score {
             s if s < 300 => ReputationLevel::Novice,
             s if s < 600 => ReputationLevel::Bronze,
-            s if s < 900 => ReputationLevel::Silver,
-            s if s < 1200 => ReputationLevel::Gold,
-            s if s < 1500 => ReputationLevel::Platinum,
+            s if s < 1000 => ReputationLevel::Silver,
+            s if s < 1400 => ReputationLevel::Gold,
+            s if s < 1800 => ReputationLevel::Platinum,
             _ => ReputationLevel::Diamond,
         }
     }
@@ -56,9 +56,9 @@ impl ReputationLevel {
             ReputationLevel::Novice => 0,
             ReputationLevel::Bronze => 300,
             ReputationLevel::Silver => 600,
-            ReputationLevel::Gold => 900,
-            ReputationLevel::Platinum => 1200,
-            ReputationLevel::Diamond => 1500,
+            ReputationLevel::Gold => 1000,
+            ReputationLevel::Platinum => 1400,
+            ReputationLevel::Diamond => 1800,
         }
     }
     
@@ -244,9 +244,12 @@ mod tests {
         assert_eq!(ReputationLevel::from_score(300), ReputationLevel::Bronze);
         assert_eq!(ReputationLevel::from_score(599), ReputationLevel::Bronze);
         assert_eq!(ReputationLevel::from_score(600), ReputationLevel::Silver);
-        assert_eq!(ReputationLevel::from_score(900), ReputationLevel::Gold);
-        assert_eq!(ReputationLevel::from_score(1200), ReputationLevel::Platinum);
-        assert_eq!(ReputationLevel::from_score(1500), ReputationLevel::Diamond);
+        assert_eq!(ReputationLevel::from_score(999), ReputationLevel::Silver);
+        assert_eq!(ReputationLevel::from_score(1000), ReputationLevel::Gold);
+        assert_eq!(ReputationLevel::from_score(1399), ReputationLevel::Gold);
+        assert_eq!(ReputationLevel::from_score(1400), ReputationLevel::Platinum);
+        assert_eq!(ReputationLevel::from_score(1799), ReputationLevel::Platinum);
+        assert_eq!(ReputationLevel::from_score(1800), ReputationLevel::Diamond);
         assert_eq!(ReputationLevel::from_score(2000), ReputationLevel::Diamond);
     }
 
