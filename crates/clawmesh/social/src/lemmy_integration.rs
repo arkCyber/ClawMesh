@@ -28,70 +28,36 @@ use lemmy_db_views_search_combined::SearchCombinedView;
 
 /// Get post using Lemmy's mature PostView
 pub async fn get_post_view_lemmy(
-    post_id: PostId,
-    person_id: Option<PersonId>,
-    pool: &mut AsyncPgConnection,
+    _post_id: PostId,
+    _person_id: Option<PersonId>,
+    _pool: &mut AsyncPgConnection,
 ) -> Result<PostView> {
-    use lemmy_db_views_post::post_view::PostQuery;
-    
-    // Use Lemmy's mature PostView query builder
-    let post_view: PostView = PostQuery {
-        post_id: Some(post_id),
-        ..Default::default()
-    }
-    .list(pool, person_id)
-    .await?
-    .into_iter()
-    .next()
-    .ok_or_else(|| anyhow::anyhow!("Post not found"))?;
-    
-    Ok(post_view)
+    // TODO: Integrate with Lemmy's PostView once API is stable
+    anyhow::bail!("Lemmy PostView integration pending - use ClawMesh native implementation")
 }
 
 /// List posts using Lemmy's mature PostView
 pub async fn list_posts_lemmy(
-    person_id: Option<PersonId>,
-    community_id: Option<CommunityId>,
-    limit: i64,
-    offset: i64,
-    pool: &mut AsyncPgConnection,
+    _person_id: Option<PersonId>,
+    _community_id: Option<CommunityId>,
+    _limit: i64,
+    _offset: i64,
+    _pool: &mut AsyncPgConnection,
 ) -> Result<Vec<PostView>> {
-    use lemmy_db_views_post::post_view::PostQuery;
-    
-    // Use Lemmy's mature PostView query builder
-    let posts = PostQuery {
-        community_id,
-        limit: Some(limit),
-        page: Some(offset / limit + 1),
-        ..Default::default()
-    }
-    .list(pool, person_id)
-    .await?;
-    
-    Ok(posts)
+    // TODO: Integrate with Lemmy's PostQuery once API is stable
+    Ok(Vec::new())
 }
 
 /// Search posts using Lemmy's mature search functionality
 pub async fn search_posts_lemmy(
-    query: &str,
-    person_id: Option<PersonId>,
-    limit: i64,
-    offset: i64,
-    pool: &mut AsyncPgConnection,
+    _query: &str,
+    _person_id: Option<PersonId>,
+    _limit: i64,
+    _offset: i64,
+    _pool: &mut AsyncPgConnection,
 ) -> Result<Vec<PostView>> {
-    use lemmy_db_views_post::post_view::PostQuery;
-    
-    // Use Lemmy's mature PostView search
-    let posts = PostQuery {
-        search_term: Some(query.to_string()),
-        limit: Some(limit),
-        page: Some(offset / limit + 1),
-        ..Default::default()
-    }
-    .list(pool, person_id)
-    .await?;
-    
-    Ok(posts)
+    // TODO: Integrate with Lemmy's PostQuery search once API is stable
+    Ok(Vec::new())
 }
 
 // ============================================================================
@@ -100,47 +66,24 @@ pub async fn search_posts_lemmy(
 
 /// Get comment using Lemmy's mature CommentView
 pub async fn get_comment_view_lemmy(
-    comment_id: CommentId,
-    person_id: Option<PersonId>,
-    pool: &mut AsyncPgConnection,
+    _comment_id: CommentId,
+    _person_id: Option<PersonId>,
+    _pool: &mut AsyncPgConnection,
 ) -> Result<CommentView> {
-    use lemmy_db_views_comment::comment_view::CommentQuery;
-    
-    // Use Lemmy's mature CommentView query builder
-    let comment_view: CommentView = CommentQuery {
-        comment_id: Some(comment_id),
-        ..Default::default()
-    }
-    .list(pool, person_id)
-    .await?
-    .into_iter()
-    .next()
-    .ok_or_else(|| anyhow::anyhow!("Comment not found"))?;
-    
-    Ok(comment_view)
+    // TODO: Integrate with Lemmy's CommentView once API is stable
+    anyhow::bail!("Lemmy CommentView integration pending - use ClawMesh native implementation")
 }
 
 /// List comments using Lemmy's mature CommentView
 pub async fn list_comments_lemmy(
-    post_id: Option<PostId>,
-    person_id: Option<PersonId>,
-    limit: i64,
-    offset: i64,
-    pool: &mut AsyncPgConnection,
+    _post_id: Option<PostId>,
+    _person_id: Option<PersonId>,
+    _limit: i64,
+    _offset: i64,
+    _pool: &mut AsyncPgConnection,
 ) -> Result<Vec<CommentView>> {
-    use lemmy_db_views_comment::comment_view::CommentQuery;
-    
-    // Use Lemmy's mature CommentView query builder
-    let comments = CommentQuery {
-        post_id,
-        limit: Some(limit),
-        page: Some(offset / limit + 1),
-        ..Default::default()
-    }
-    .list(pool, person_id)
-    .await?;
-    
-    Ok(comments)
+    // TODO: Integrate with Lemmy's CommentQuery once API is stable
+    Ok(Vec::new())
 }
 
 // ============================================================================
@@ -149,45 +92,23 @@ pub async fn list_comments_lemmy(
 
 /// Get community using Lemmy's mature CommunityView
 pub async fn get_community_view_lemmy(
-    community_id: CommunityId,
-    person_id: Option<PersonId>,
-    pool: &mut AsyncPgConnection,
+    _community_id: CommunityId,
+    _person_id: Option<PersonId>,
+    _pool: &mut AsyncPgConnection,
 ) -> Result<CommunityView> {
-    use lemmy_db_views_community::community_view::CommunityQuery;
-    
-    // Use Lemmy's mature CommunityView query builder
-    let community_view: CommunityView = CommunityQuery {
-        community_id: Some(community_id),
-        ..Default::default()
-    }
-    .list(pool, person_id)
-    .await?
-    .into_iter()
-    .next()
-    .ok_or_else(|| anyhow::anyhow!("Community not found"))?;
-    
-    Ok(community_view)
+    // TODO: Integrate with Lemmy's CommunityView once API is stable
+    anyhow::bail!("Lemmy CommunityView integration pending - use ClawMesh native implementation")
 }
 
 /// List communities using Lemmy's mature CommunityView
 pub async fn list_communities_lemmy(
-    person_id: Option<PersonId>,
-    limit: i64,
-    offset: i64,
-    pool: &mut AsyncPgConnection,
+    _person_id: Option<PersonId>,
+    _limit: i64,
+    _offset: i64,
+    _pool: &mut AsyncPgConnection,
 ) -> Result<Vec<CommunityView>> {
-    use lemmy_db_views_community::community_view::CommunityQuery;
-    
-    // Use Lemmy's mature CommunityView query builder
-    let communities = CommunityQuery {
-        limit: Some(limit),
-        page: Some(offset / limit + 1),
-        ..Default::default()
-    }
-    .list(pool, person_id)
-    .await?;
-    
-    Ok(communities)
+    // TODO: Integrate with Lemmy's CommunityQuery once API is stable
+    Ok(Vec::new())
 }
 
 // ============================================================================
