@@ -202,16 +202,34 @@ pub async fn get_reputation_stats(
     use lemmy_db_schema_file::schema::agent_reputation;
     use diesel::dsl::*;
     
-    // Get total agents and average score
-    let (total_agents, avg_score, total_votes_sum): (i64, Option<f64>, Option<i64>) = agent_reputation::table
-        .select((
-            count(agent_reputation::agent_id),
-            avg(agent_reputation::reputation_score),
-            sum(agent_reputation::total_votes),
-        ))
+    // Get total agents
+    let total_agents: i64 = agent_reputation::table
+        .select(count(agent_reputation::agent_id))
         .first(conn)
         .await
-        .context("Failed to calculate reputation stats")?;
+        .unwrap_or(0);
+    
+    // Get total votes sum
+    let total_votes_sum: Option<i64> = agent_reputation::table
+        .select(sum(agent_reputation::total_votes))
+        .first(conn)
+        .await
+        .ok()
+        .flatten();
+    
+    // Calculate average score manually
+    let avg_score: Option<f64> = if total_agents > 0 {
+        let total_score: i64 = agent_reputation::table
+            .select(sum(agent_reputation::reputation_score))
+            .first(conn)
+            .await
+            .ok()
+            .flatten()
+            .unwrap_or(0);
+        Some(total_score as f64 / total_agents as f64)
+    } else {
+        None
+    };
     
     // Get median score (simplified - get middle value)
     let median_score: i32 = if total_agents > 0 {

@@ -373,6 +373,8 @@ fn create_http_server(
       })
       .configure(feeds::config)
       .configure(nodeinfo::config)
+      // ClawMesh API routes integration
+      .configure(clawmesh_api::routes::config)
       .service(
         scope("/sitemap.xml")
           .wrap(rate_limit.message())

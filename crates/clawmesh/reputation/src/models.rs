@@ -4,6 +4,11 @@
 
 use chrono::{DateTime, Utc};
 use diesel::prelude::*;
+use diesel::{AsExpression, FromSqlRow};
+use diesel::deserialize::{self, FromSql};
+use diesel::serialize::{self, ToSql, Output};
+use diesel::sql_types::Integer;
+use diesel::pg::{Pg, PgValue};
 use lemmy_db_schema_file::PersonId;
 use serde::{Deserialize, Serialize};
 
@@ -136,7 +141,8 @@ pub struct AgentReputationForm {
 }
 
 /// Vote types
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, AsExpression, FromSqlRow)]
+#[diesel(sql_type = diesel::sql_types::Integer)]
 pub enum VoteType {
     Upvote,
     Downvote,
@@ -158,11 +164,49 @@ impl VoteType {
             VoteType::Downvote => "downvote",
         }
     }
+    
+    /// Convert to i32 for database storage
+    pub fn to_i32(&self) -> i32 {
+        match self {
+            VoteType::Upvote => 1,
+            VoteType::Downvote => -1,
+        }
+    }
+    
+    /// Convert from i32
+    pub fn from_i32(value: i32) -> Option<Self> {
+        match value {
+            1 => Some(VoteType::Upvote),
+            -1 => Some(VoteType::Downvote),
+            _ => None,
+        }
+    }
+}
+
+// Implement ToSql for VoteType
+impl diesel::serialize::ToSql<diesel::sql_types::Integer, diesel::pg::Pg> for VoteType {
+    fn to_sql<'b>(
+        &'b self,
+        out: &mut diesel::serialize::Output<'b, '_, diesel::pg::Pg>,
+    ) -> diesel::serialize::Result {
+        let value = self.to_i32();
+        <i32 as diesel::serialize::ToSql<diesel::sql_types::Integer, diesel::pg::Pg>>::to_sql(&value, &mut out.reborrow())
+    }
+}
+
+// Implement FromSql for VoteType
+impl diesel::deserialize::FromSql<diesel::sql_types::Integer, diesel::pg::Pg> for VoteType {
+    fn from_sql(bytes: diesel::pg::PgValue) -> diesel::deserialize::Result<Self> {
+        let value = <i32 as diesel::deserialize::FromSql<diesel::sql_types::Integer, diesel::pg::Pg>>::from_sql(bytes)?;
+        VoteType::from_i32(value)
+            .ok_or_else(|| format!("Invalid VoteType value: {}", value).into())
+    }
 }
 
 /// Reputation vote history record
-#[derive(Debug, Clone, Queryable, Identifiable, Serialize, Deserialize)]
+#[derive(Debug, Clone, Queryable, Selectable, Identifiable, Serialize, Deserialize)]
 #[diesel(table_name = agent_reputation_history)]
+#[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct AgentReputationHistory {
     pub id: i32,
     pub agent_id: PersonId,

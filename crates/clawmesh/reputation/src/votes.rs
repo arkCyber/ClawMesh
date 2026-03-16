@@ -185,6 +185,7 @@ pub async fn get_vote_history(
         .order(agent_reputation_history::created_at.desc())
         .limit(limit)
         .offset(offset)
+        .select(AgentReputationHistory::as_select())
         .load::<AgentReputationHistory>(conn)
         .await
         .context("Failed to load vote history")?;
@@ -210,6 +211,7 @@ pub async fn get_votes_by_voter(
         .order(agent_reputation_history::created_at.desc())
         .limit(limit)
         .offset(offset)
+        .select(AgentReputationHistory::as_select())
         .load::<AgentReputationHistory>(conn)
         .await
         .context("Failed to load voter history")?;
