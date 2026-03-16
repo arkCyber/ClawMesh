@@ -215,31 +215,44 @@ pub async fn get_order_statistics(
     seller_id: Option<i32>,
     conn: &mut AsyncPgConnection,
 ) -> Result<OrderStatistics> {
-    let mut query = marketplace_orders::table.into_boxed();
-    
-    if let Some(sid) = seller_id {
-        query = query.filter(marketplace_orders::seller_id.eq(sid));
-    }
+    // Build base filter
+    let base_filter = seller_id.map(|sid| marketplace_orders::seller_id.eq(sid));
     
     // Total orders
-    let total_orders: i64 = query.clone().count().get_result(conn).await?;
+    let mut total_query = marketplace_orders::table.into_boxed();
+    if let Some(ref filter) = base_filter {
+        total_query = total_query.filter(filter.clone());
+    }
+    let total_orders: i64 = total_query.count().get_result(conn).await?;
     
     // Pending orders
-    let pending_orders: i64 = query.clone()
+    let mut pending_query = marketplace_orders::table.into_boxed();
+    if let Some(ref filter) = base_filter {
+        pending_query = pending_query.filter(filter.clone());
+    }
+    let pending_orders: i64 = pending_query
         .filter(marketplace_orders::status.eq(OrderStatus::Pending as i32))
         .count()
         .get_result(conn)
         .await?;
     
     // Completed orders
-    let completed_orders: i64 = query.clone()
+    let mut completed_query = marketplace_orders::table.into_boxed();
+    if let Some(ref filter) = base_filter {
+        completed_query = completed_query.filter(filter.clone());
+    }
+    let completed_orders: i64 = completed_query
         .filter(marketplace_orders::status.eq(OrderStatus::Completed as i32))
         .count()
         .get_result(conn)
         .await?;
     
     // Total revenue (completed orders only)
-    let total_revenue: Option<i64> = query.clone()
+    let mut revenue_query = marketplace_orders::table.into_boxed();
+    if let Some(ref filter) = base_filter {
+        revenue_query = revenue_query.filter(filter.clone());
+    }
+    let total_revenue: Option<i64> = revenue_query
         .filter(marketplace_orders::status.eq(OrderStatus::Completed as i32))
         .select(diesel::dsl::sum(marketplace_orders::total_price))
         .first(conn)

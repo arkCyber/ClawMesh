@@ -147,9 +147,13 @@ pub async fn get_average_rating(
     product_id: i32,
     conn: &mut AsyncPgConnection,
 ) -> Result<f64> {
+    use diesel::dsl::sql;
+    use diesel::sql_types::Nullable;
+    use diesel::sql_types::Double;
+    
     let avg: Option<f64> = marketplace_reviews::table
         .filter(marketplace_reviews::product_id.eq(product_id))
-        .select(diesel::dsl::avg(marketplace_reviews::rating))
+        .select(sql::<Nullable<Double>>("AVG(rating)"))
         .first(conn)
         .await?;
     

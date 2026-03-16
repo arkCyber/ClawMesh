@@ -85,7 +85,7 @@ pub async fn process_payment(
     use lemmy_db_schema_file::schema::credit_history;
     let payer_balance: Option<i64> = credit_history::table
         .filter(credit_history::person_id.eq(payment.payer_id))
-        .select(diesel::dsl::sum(credit_history::amount))
+        .select(diesel::dsl::sum(credit_history::credit_change))
         .first(conn)
         .await?;
     
@@ -105,8 +105,9 @@ pub async fn process_payment(
     diesel::insert_into(credit_history::table)
         .values((
             credit_history::person_id.eq(payment.payer_id),
-            credit_history::amount.eq(-payment.amount),
-            credit_history::description.eq(format!("Payment for order #{}", payment.order_id)),
+            credit_history::action_type.eq("payment"),
+            credit_history::credit_change.eq(-payment.amount),
+            credit_history::reason.eq(Some(format!("Payment for order #{}", payment.order_id))),
         ))
         .execute(conn)
         .await?;
@@ -115,8 +116,9 @@ pub async fn process_payment(
     diesel::insert_into(credit_history::table)
         .values((
             credit_history::person_id.eq(payment.payee_id),
-            credit_history::amount.eq(payment.amount),
-            credit_history::description.eq(format!("Payment received for order #{}", payment.order_id)),
+            credit_history::action_type.eq("payment_received"),
+            credit_history::credit_change.eq(payment.amount),
+            credit_history::reason.eq(Some(format!("Payment received for order #{}", payment.order_id))),
         ))
         .execute(conn)
         .await?;
@@ -150,8 +152,9 @@ pub async fn refund_payment(
     diesel::insert_into(credit_history::table)
         .values((
             credit_history::person_id.eq(payment.payer_id),
-            credit_history::amount.eq(payment.amount),
-            credit_history::description.eq(format!("Refund for order #{}", payment.order_id)),
+            credit_history::action_type.eq("refund"),
+            credit_history::credit_change.eq(payment.amount),
+            credit_history::reason.eq(Some(format!("Refund for order #{}", payment.order_id))),
         ))
         .execute(conn)
         .await?;
@@ -160,8 +163,9 @@ pub async fn refund_payment(
     diesel::insert_into(credit_history::table)
         .values((
             credit_history::person_id.eq(payment.payee_id),
-            credit_history::amount.eq(-payment.amount),
-            credit_history::description.eq(format!("Refund issued for order #{}", payment.order_id)),
+            credit_history::action_type.eq("refund_issued"),
+            credit_history::credit_change.eq(-payment.amount),
+            credit_history::reason.eq(Some(format!("Refund issued for order #{}", payment.order_id))),
         ))
         .execute(conn)
         .await?;
