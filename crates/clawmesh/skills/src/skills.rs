@@ -468,19 +468,19 @@ def process_data(data):
     // ========================================================================
 
     #[test]
-    fn test_skill_type_values() {
-        assert_eq!(SkillType::Python as i32, 0);
-        assert_eq!(SkillType::JavaScript as i32, 1);
-        assert_eq!(SkillType::Rust as i32, 2);
-        assert_eq!(SkillType::WebAssembly as i32, 3);
+    fn test_skill_type_as_i32() {
+        assert_eq!(SkillType::Builtin as i32, 0);
+        assert_eq!(SkillType::Custom as i32, 1);
+        assert_eq!(SkillType::Shared as i32, 2);
+        assert_eq!(SkillType::External as i32, 3);
     }
 
     #[test]
     fn test_skill_type_from_i32() {
-        assert_eq!(SkillType::from_i32(0), Some(SkillType::Python));
-        assert_eq!(SkillType::from_i32(1), Some(SkillType::JavaScript));
-        assert_eq!(SkillType::from_i32(2), Some(SkillType::Rust));
-        assert_eq!(SkillType::from_i32(3), Some(SkillType::WebAssembly));
+        assert_eq!(SkillType::from_i32(0), Some(SkillType::Builtin));
+        assert_eq!(SkillType::from_i32(1), Some(SkillType::Custom));
+        assert_eq!(SkillType::from_i32(2), Some(SkillType::Shared));
+        assert_eq!(SkillType::from_i32(3), Some(SkillType::External));
         assert_eq!(SkillType::from_i32(4), None);
         assert_eq!(SkillType::from_i32(-1), None);
     }

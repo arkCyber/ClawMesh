@@ -24,6 +24,11 @@ pub fn validate_skill_code(code: &str) -> Result<()> {
         bail!("Empty code");
     }
     
+    // Check for whitespace-only code
+    if code.trim().is_empty() {
+        bail!("Code contains only whitespace");
+    }
+    
     // 2. Scan for malicious code
     scan_for_malicious_code(code)?;
     
@@ -332,7 +337,8 @@ def hello():
 
     #[test]
     fn test_obfuscation_detection() {
-        let obfuscated = "x = '\\x41\\x42\\x43' * 100";
+        // 需要超过 20 个 hex 模式才会触发错误
+        let obfuscated = "x = '\\x41\\x42\\x43\\x44\\x45\\x46\\x47\\x48\\x49\\x4a\\x4b\\x4c\\x4d\\x4e\\x4f\\x50\\x51\\x52\\x53\\x54\\x55\\x56\\x57\\x58\\x59\\x5a'";
         assert!(check_obfuscation(obfuscated).is_err());
     }
 }
