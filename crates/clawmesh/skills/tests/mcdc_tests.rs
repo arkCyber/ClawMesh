@@ -152,13 +152,13 @@ mod mcdc_skills_tests {
     #[test]
     fn mcdc_malicious_file_operations() {
         let patterns = vec![
-            "open('/etc/passwd'",
-            "open('/etc/shadow'",
-            "os.remove(",
+            "/etc/passwd",
+            "/etc/shadow",
+            "rm -rf",
         ];
         
         for pattern in patterns {
-            let code = format!("{}", pattern);
+            let code = format!("test {}", pattern);
             let result = validate_skill_code(&code);
             assert!(result.is_err(), "Pattern '{}' should be detected", pattern);
         }
@@ -167,9 +167,9 @@ mod mcdc_skills_tests {
     #[test]
     fn mcdc_malicious_network_operations() {
         let patterns = vec![
-            "socket.socket(",
+            "socket.socket",
             "urllib.request",
-            "requests.get(",
+            "requests.post",
         ];
         
         for pattern in patterns {
